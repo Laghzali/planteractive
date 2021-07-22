@@ -34,7 +34,11 @@ class main extends Controller
     return response($overlays, 200);
 
     }
-
+    public function retriveLastOverlay() {
+      $overlays = overlays::latest()->first()->toJson(JSON_PRETTY_PRINT);
+      return response($overlays, 200);
+  
+      }
     public function deleteOverlay($id) {
 
         if(overlays::where('id', $id)->exists()) {

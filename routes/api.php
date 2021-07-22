@@ -18,6 +18,7 @@ use App\Http\Controllers\Main;
 Route::post('/save' , [Main::class, 'saveOverlay']);
 Route::delete('/delete/{id}' , [Main::class, 'deleteOverlay']);
 Route::get('/retrive' , [Main::class, 'retriveOverlay']);
+Route::get('/retrive/last' , [Main::class, 'retriveLastOverlay']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

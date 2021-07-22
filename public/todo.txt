@@ -1,3 +1,11 @@
 SYMBOLE SIZE
 SYMBOLE COLOR
 SYMBOLE SHAPE
+
+fas  fa-times
+fas  fa-crosshairs
+customCircle
+
+
+
+        
