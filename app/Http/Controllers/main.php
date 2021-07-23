@@ -31,7 +31,7 @@ class main extends Controller
       $map->path = $dzout;
       $map->name = $request->map_name;
       $map->save();
-      return preg_replace('/app/public/', '', $dzout);
+      return preg_replace('/app\/public/', '', $dzout);
 
     }
 

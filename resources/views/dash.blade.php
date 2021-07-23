@@ -158,7 +158,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form method="post" id="formData" action="/api/save" enctype="multipart/form-data"></form>
+      <form method="post"  action="/api/save" enctype="multipart/form-data"></form>
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" id="map_name" placeholder="">
@@ -263,8 +263,7 @@
         homeButton:   "home",
         showNavigationControl: true,
         id: "openseadragon",
-        prefixUrl: "/files_0001",
-        tileSources: "/0001.dzi"
+
     });
 
 
