@@ -9,7 +9,7 @@ class main extends Controller
 {
 
 
-  public function newMap(Request $request) {
+  public function newMap2jpg(Request $request) {
     $map = new maps;
     if($request->file()) {
       $uploadMap = time().'_'.$request->map_pdf->getClientOriginalName();
