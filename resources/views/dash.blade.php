@@ -272,7 +272,7 @@
                 drawLatest()
                 
             }}
-        xhr.open("POST", 'http://127.0.0.1:8000/api/save', true);
+        xhr.open("POST", 'api/save', true);
 
         xhr.send(form);
         
@@ -321,7 +321,7 @@ function drawLatest(){
             }
         }
 
-    xhr.open("get", 'http://127.0.0.1:8000/api/retrive/last', true); 
+    xhr.open("get", 'api/retrive/last', true); 
     xhr.setRequestHeader('Accept', 'application/json'); 
     xhr.send();
 
@@ -374,7 +374,7 @@ function draw() {
             })
         }
 
-    xhr.open("get", 'http://127.0.0.1:8000/api/retrive', true); 
+    xhr.open("get", 'api/retrive', true); 
     xhr.setRequestHeader('Accept', 'application/json'); 
     xhr.send();
 
@@ -417,7 +417,7 @@ function deleteOverlay(id) {
                 
             }}
         
-        xhr.open("DELETE", 'http://127.0.0.1:8000/api/delete/'+id, true);
+        xhr.open("DELETE", 'api/delete/'+id, true);
         xhr.send();
 }
 
