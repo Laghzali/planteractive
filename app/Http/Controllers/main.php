@@ -25,7 +25,7 @@ class main extends Controller
       if($pdf2jpg) {
         $response = "done";
       }
-      return $response;
+      return '$response';
     }
 
   }
