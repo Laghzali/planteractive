@@ -9,21 +9,29 @@ class main extends Controller
 {
 
 
+  public function retriveMaps() {
+    $maps = maps::get()->toJson(JSON_PRETTY_PRINT);
+    return response($maps, 200);
+  }
+
   public function newMap2jpg(Request $request) {
     $map = new maps;
     if($request->file()) {
       $pdfName = preg_replace('/\s+/', '', time().'_'.$request->map_pdf->getClientOriginalName());
       $mapPath = $request->file('map_pdf')->storeAs('uploads/pdfs', $pdfName, 'public');
 	 
- 	  $pdfInFile = getCWD().'/storage/'. $mapPath;
-	  $jpgout = storage_path('app/public/uploads/jpg/'.preg_replace('/.pdf/', '', $pdfName));
-	  $dzin = $jpgout.'-1.jpg';
-	  $dzout = storage_path('app/public/uploads/dzi/'.preg_replace('/.pdf/', '', $pdfName . '.dzi'));
-	  $cmdJPG = 'pdftoppm -jpeg -r 300 '. $pdfInFile . ' ' . $jpgout ;
-	  $pdf2jpg = system($cmdJPG);
-	  $cmdDZI = '/usr/bin/python3 ../dzi.py '.$dzin.' '.$dzout;
-	  $jpg2dzi = system($cmdDZI );
-	  return "done";
+      $pdfInFile = getCWD().'/storage/'. $mapPath;
+      $jpgout = storage_path('app/public/uploads/jpg/'.preg_replace('/.pdf/', '', $pdfName));
+      $dzin = $jpgout.'-1.jpg';
+      $dzout = storage_path('app/public/uploads/dzi/'.preg_replace('/.pdf/', '', $pdfName . '.dzi'));
+      $cmdJPG = 'pdftoppm -jpeg -r 300 '. $pdfInFile . ' ' . $jpgout ;
+      $pdf2jpg = system($cmdJPG);
+      $cmdDZI = '/usr/bin/python3 ../dzi.py '.$dzin.' '.$dzout;
+      $jpg2dzi = system($cmdDZI );
+      $map->path = $dzout;
+      $map->name = $request->name;
+      $map->save();
+      return "Map added";
 
     }
 
