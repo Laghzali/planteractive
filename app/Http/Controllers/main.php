@@ -21,8 +21,11 @@ class main extends Controller
       $output = trim($uploadMap, '.pdf');
       $output = preg_replace('/\s+/', '', $uploadMap);
       $cmd = 'pdftoppm -jpeg -r 300 '.$uploadMap . ' ' . $output ;
-      //$pdf2jpg = shell_exec($pdftojpg);
-      return $cmd;
+      $pdf2jpg = shell_exec($cmd);
+      if($pdf2jpg) {
+        $response = "done";
+      }
+      return $response;
     }
 
   }
