@@ -7,5 +7,9 @@ fas  fa-crosshairs
 customCircle
 
 
+//
+EDITABLE DETAILS
+SIDEBAR POINTERS LIST DRAG TO DRAW .. // SEARCH FIELD / FILTER BY FLOOR
+
 
         

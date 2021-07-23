@@ -230,10 +230,6 @@
         homeButton:   "home",
         showNavigationControl: true,
         id: "openseadragon",
-
-        gestureSettingsTouch: {
-        pinchRotate: true
-        },
         prefixUrl: "/files_0001",
         tileSources: "/0001.dzi"
     });
