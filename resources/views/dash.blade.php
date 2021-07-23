@@ -223,10 +223,8 @@
                         <i style='font-size:22px' class=" far fa-clone fa-2x icon"></i>
                         
                         </span>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                            <li><a  class="dropdown-item" href="#">MAP1 (FLOOR 2)</a></li>
-                            <li><a class="dropdown-item" href="#">FLOOR 3</a></li>
-                            <li><a class="dropdown-item" href="#">FLOOR 4</a></li>
+                        <ul id="mapsList" class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+
                         </ul>
                     </div>
                 <!--MAPS-->    
@@ -287,7 +285,11 @@
         //viewer.addOverlay(element, point, OpenSeadragon.Placement.CENTER);
     }
 };
-
+    function addMap(url) {
+        viewer.addTiledImage({
+            tileSource: url,
+        });
+    }
     function sendForm(sym, color) {
         var image = document.getElementById('image');
         var file = image.files[0];
@@ -304,8 +306,7 @@
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
-                drawLatest()
-                
+                populateMaps();
             }}
         xhr.open("POST", 'api/save', true);
 
@@ -448,9 +449,27 @@ jQuery( document ).ready(function() {
 
             
 		});
-    
         }
         setTimeout(puls, 1000);
+
+        function populateMaps() {
+            var xhr = new XMLHttpRequest();
+            ul = document.getElementById('mapsList')
+            xhr.onreadystatechange = function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        var data = JSON.parse(xhr.responseText);
+                        for(elm in data){
+                            addMap(String(data[elm].path))
+                            ul.innerHTML += '<li><a  class="dropdown-item" href="#">'+data[elm].name+'</a></li>'
+                        }
+                    }
+                }
+            xhr.open("get", 'api/retrive/maps', true); 
+            xhr.setRequestHeader('Accept', 'application/json'); 
+            xhr.send();
+
+        }
+        populateMaps()
 
 });
 

@@ -17,7 +17,7 @@ class main extends Controller
   public function newMap2jpg(Request $request) {
     $map = new maps;
     if($request->file()) {
-      $pdfName = preg_replace('/\s+/', '', time().'_'.$request->map_pdf->getClientOriginalName());
+      $pdfName = preg_replace('/\s+/', '', time().$request->map_pdf->getClientOriginalExtension());
       $mapPath = $request->file('map_pdf')->storeAs('uploads/pdfs', $pdfName, 'public');
 	 
       $pdfInFile = getCWD().'/storage/'. $mapPath;
@@ -29,9 +29,9 @@ class main extends Controller
       $cmdDZI = '/usr/bin/python3 ../dzi.py '.$dzin.' '.$dzout;
       $jpg2dzi = system($cmdDZI );
       $map->path = $dzout;
-      $map->name = $request->name;
+      $map->name = $request->map_name;
       $map->save();
-      return "Map added";
+      return preg_replace('/app/public/', '', $dzout);
 
     }
 
