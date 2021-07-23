@@ -459,7 +459,7 @@ jQuery( document ).ready(function() {
                     if (xhr.readyState == XMLHttpRequest.DONE) {
                         var data = JSON.parse(xhr.responseText);
                         for(elm in data){
-                            addMap(String(data[elm].path))
+                           
                             ul.innerHTML += '<li><a  class="dropdown-item" href="#">'+data[elm].name+'</a></li>'
                         }
                     }
