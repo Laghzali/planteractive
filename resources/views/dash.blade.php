@@ -148,6 +148,41 @@
     </div>
   </div>
 </div>
+
+<!-- UPLOAD PDF -->
+<div class="modal fade" id="uploadPdf" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add new Map</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form method="post" id="formData" action="/api/save" enctype="multipart/form-data"></form>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="map_name" placeholder="">
+                <input type="text" hidden id="x">
+                <input type="text" hidden id="y">
+              </div>
+
+              <div class="form-group">
+                <label for="image">Upload PDF</label>
+                <input class="form-control" type="file"  id="map_pdf">
+              </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" data-bs-dismiss="modal" onclick="uploadPdf()" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UPLOAD PDF -->
+
 <div class="container-fluid">
     <div style="max-height: 100vh;"class="row ">
         <!--COPYRIGHTV-->
@@ -175,7 +210,7 @@
 
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark text-small shadow mb-2" aria-labelledby="dropdownUser1">
-                                <li><a onclick='$("#dataSend").modal("show");' class="dropdown-item" href="#">New project...</a></li>
+                                <li><a onclick='$("#uploadPdf").modal("show");' class="dropdown-item" href="#">New project...</a></li>
                                 <li><a class="dropdown-item" href="#">Embed</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="#">Sign out</a></li>
@@ -274,6 +309,25 @@
             }}
         xhr.open("POST", 'api/save', true);
 
+        xhr.send(form);
+        
+    }
+
+
+    function uploadPdf() {
+        var image = document.getElementById('map_pdf');
+        var file = image.files[0];
+        name =  document.getElementById('map_name').value 
+        form = new FormData()
+        form.append('map_name', name)
+        form.append('map_pdf', file);
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) { 
+                drawLatest()
+                
+            }}
+        xhr.open("POST", 'api/new/map', true);
         xhr.send(form);
         
     }

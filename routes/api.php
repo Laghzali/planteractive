@@ -16,6 +16,7 @@ use App\Http\Controllers\Main;
 
 
 Route::post('/save' , [Main::class, 'saveOverlay']);
+Route::post('/new/map' , [Main::class, 'newMap']);
 Route::delete('/delete/{id}' , [Main::class, 'deleteOverlay']);
 Route::get('/retrive' , [Main::class, 'retriveOverlay']);
 Route::get('/retrive/last' , [Main::class, 'retriveLastOverlay']);

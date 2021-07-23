@@ -4,8 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\overlays;
+use App\Models\maps;
 class main extends Controller
 {
+
+
+  public function newMap(Request $request) {
+    $map = new maps;
+    if($request->file()) {
+      $uploadMap = time().'_'.$request->map_pdf->getClientOriginalName();
+      $mapPath = $request->file('map_pdf')->storeAs('uploads/pdfs', $uploadMap, 'public');
+      $map->path = '/storage/' .$mapPath;
+      $map->name = $request->map_name;
+    }
+    if($map->save()){
+      $output = trim($uploadMap, '.pdf');
+      $output = preg_replace('/\s+/', '', $uploadMap);
+      $cmd = 'pdftoppm -jpeg -r 300 '.$uploadMap . ' ' . $output ;
+      $pdf2jpg = shell_exec($pdftojpg);
+      if($pdf2jpg) {
+        return "done";
+      }
+
+    }
+
+  }
 
    public function saveOverlay(Request $request) {
 
