@@ -23,9 +23,9 @@ class main extends Controller
       $cmd = 'pdftoppm -jpeg -r 300 '.$uploadMap . ' ' . $output ;
       $pdf2jpg = shell_exec($pdftojpg);
       if($pdf2jpg) {
-        return "done";
+        $response = "done";
       }
-
+      return $response . $pdf2jpg;
     }
 
   }
