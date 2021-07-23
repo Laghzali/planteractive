@@ -14,19 +14,27 @@ class main extends Controller
     if($request->file()) {
       $uploadMap = preg_replace('/\s+/', '', time().'_'.$request->map_pdf->getClientOriginalName());
       $mapPath = $request->file('map_pdf')->storeAs('uploads/pdfs', $uploadMap, 'public');
-      $map->path = '/storage/' .$mapPath;
-      $map->name = $request->map_name;
-    }
-    if($map->save()){
-      $output = trim($uploadMap, '.pdf');
-      $output = preg_replace('/\s+/', '', $map->path);
-      $cmd = 'pdftoppm -jpeg -r 300 '.getcwd().$map->path . ' ' .getcwd(). $output ;
-      $pdf2jpg = shell_exec($cmd);
+      $output = trim($mapPath, '.pdf');
+      $output = preg_replace('/\s+/', '', $output);
+      $output = getcwd().'/'.$output;
+      $input = getcwd().'/'.$mapPath;
+
+      $cmdJPG = 'pdftoppm -jpeg -r 300 '. $input . ' ' . $output ;
+
+      $pdf2jpg = shell_exec($cmdJPG);
       if($pdf2jpg) {
-        $response = "done";
+        $cmdDZI = 'python3 dzi.py '.$output.'.jpg ' . $output ; 
+        $jpg2dzi = shell_exec($cmdDZI);
+        if($cmdDZI) {
+          $map->path = $output.'.jpg';
+          $map->name = $request->map_name;
+        }
+        return $cmdDZI;
       }
-      return $cmd;
+
+      return $cmdJPG;
     }
+
 
   }
 
