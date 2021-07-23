@@ -21,7 +21,7 @@ class main extends Controller
     if($map->save()){
       $output = trim($uploadMap, '.pdf');
       $output = preg_replace('/\s+/', '', $mapPath);
-      $cmd = 'pdftoppm -jpeg -r 300 '.$mapPath . ' ' . $output ;
+      $cmd = 'pdftoppm -jpeg -r 300 '.getcwd().$mapPath . ' ' .getcwd(). $output ;
       $pdf2jpg = shell_exec($cmd);
       if($pdf2jpg) {
         $response = "done";
