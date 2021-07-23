@@ -13,6 +13,7 @@ class main extends Controller
     $map = new maps;
     if($request->file()) {
       $uploadMap = time().'_'.$request->map_pdf->getClientOriginalName();
+      $uploadMap = preg_replace('/\s+/', '', $uploadMap);
       $mapPath = $request->file('map_pdf')->storeAs('uploads/pdfs', $uploadMap, 'public');
       $map->path = '/storage/' .$mapPath;
       $map->name = $request->map_name;
@@ -25,7 +26,7 @@ class main extends Controller
       if($pdf2jpg) {
         $response = "done";
       }
-      return $pdf2jpg;
+      return $mapPath;
     }
 
   }
