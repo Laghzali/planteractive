@@ -12,8 +12,7 @@ class main extends Controller
   public function newMap2jpg(Request $request) {
     $map = new maps;
     if($request->file()) {
-      $uploadMap = time().'_'.$request->map_pdf->getClientOriginalName();
-      $uploadMap = preg_replace('/\s+/', '', $uploadMap);
+      $uploadMap = preg_replace('/\s+/', '', time().'_'.$request->map_pdf->getClientOriginalName());
       $mapPath = $request->file('map_pdf')->storeAs('uploads/pdfs', $uploadMap, 'public');
       $map->path = '/storage/' .$mapPath;
       $map->name = $request->map_name;
