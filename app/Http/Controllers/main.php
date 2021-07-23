@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\overlays;
 use App\Models\maps;
-class Main extends Controller
+class main extends Controller
 {
 
 
