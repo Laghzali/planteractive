@@ -12,27 +12,19 @@ class main extends Controller
   public function newMap2jpg(Request $request) {
     $map = new maps;
     if($request->file()) {
-      $uploadMap = preg_replace('/\s+/', '', time().'_'.$request->map_pdf->getClientOriginalName());
-      $mapPath = $request->file('map_pdf')->storeAs('uploads/pdfs', $uploadMap, 'public');
-      $output = trim($mapPath, '.pdf');
-      $output = preg_replace('/\s+/', '', $output);
-      $output = getcwd().'/'.$output;
-      $input = getcwd().'/'.$mapPath;
+      $pdfName = preg_replace('/\s+/', '', time().'_'.$request->map_pdf->getClientOriginalName());
+      $mapPath = $request->file('map_pdf')->storeAs('uploads/pdfs', $pdfName, 'public');
+	 
+ 	  $pdfInFile = getCWD().'/storage/'. $mapPath;
+	  $jpgout = storage_path('app/public/uploads/jpg/'.preg_replace('/.pdf/', '', $pdfName));
+	  $dzin = $jpgout.'-1.jpg';
+	  $dzout = storage_path('app/public/uploads/dzi/'.preg_replace('/.pdf/', '', $pdfName . '.dzi'));
+	  $cmdJPG = 'pdftoppm -jpeg -r 300 '. $pdfInFile . ' ' . $jpgout ;
+	  $pdf2jpg = system($cmdJPG);
+	  $cmdDZI = '/usr/bin/python3 ../dzi.py '.$dzin.' '.$dzout;
+	  $jpg2dzi = system($cmdDZI );
+	  return "done";
 
-      $cmdJPG = 'pdftoppm -jpeg -r 300 '. $input . ' ' . $output ;
-
-      $pdf2jpg = shell_exec($cmdJPG);
-      if($pdf2jpg) {
-        $cmdDZI = 'python3 dzi.py '.$output.'.jpg ' . $output ; 
-        $jpg2dzi = shell_exec($cmdDZI);
-        if($cmdDZI) {
-          $map->path = $output.'.jpg';
-          $map->name = $request->map_name;
-        }
-        return $cmdDZI;
-      }
-
-      return $cmdJPG;
     }
 
 
