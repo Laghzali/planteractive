@@ -264,34 +264,7 @@
 <script src="openseadragon.min.js"></script>
 <script type="text/javascript">
 
-jQuery( document ).ready(function() {
 
-        function populateMaps() {
-            var xhr = new XMLHttpRequest();
-            ul = document.getElementById('mapsList')
-            xhr.onreadystatechange = function() {
-                    if (xhr.readyState == XMLHttpRequest.DONE) {
-                        var data = JSON.parse(xhr.responseText);
-                        for(elm in data){
-                            li = document.createElement('li')
-                            li.id = "map"+data[elm].id
-                            li.innerHTML += '<a class="dropdown-item" href="#">'+data[elm].name+'</a>'
-                            li.onclick = loadMap(data[elm].path , data[elm].id)
-                            ul.appendChild(li)
-                        }
-                    }
-                }
-            xhr.open("get", 'api/retrive/maps', true); 
-            xhr.setRequestHeader('Accept', 'application/json'); 
-            xhr.send();
-
-        }
-        populateMaps()
-
-
-
-
-});
 
     var viewer = OpenSeadragon({
         visibilityRatio: 1.0,
@@ -353,7 +326,7 @@ jQuery( document ).ready(function() {
             viewer.world.addHandler('add-item', function (){
                     sessionStorage.setItem('currentMap', mapId);
                     draw()
-                    setTimeout(puls, 3000)
+                    puls()
                     loader.remove()
             });
          };
@@ -532,6 +505,53 @@ function deleteOverlay(id) {
         xhr.open("DELETE", 'api/delete/'+id, true);
         xhr.send();
 }
+
+
+
+
+function puls() {
+        
+        $(".pulsate").jPulse({
+			color: "#FF1414",
+            size: 150,
+			speed: 600,
+			interval: 2000,
+			left: 0,
+			top: 0,
+            zIndex:1
+
+            
+		});
+        }
+
+jQuery( document ).ready(function() {
+
+        function populateMaps() {
+            var xhr = new XMLHttpRequest();
+            ul = document.getElementById('mapsList')
+            xhr.onreadystatechange = function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        var data = JSON.parse(xhr.responseText);
+                        for(elm in data){
+                            li = document.createElement('li')
+                            li.id = "map"+data[elm].id
+                            li.innerHTML += '<a class="dropdown-item" href="#">'+data[elm].name+'</a>'
+                            li.onclick = loadMap(data[elm].path , data[elm].id)
+                            ul.appendChild(li)
+                        }
+                    }
+                }
+            xhr.open("get", 'api/retrive/maps', true); 
+            xhr.setRequestHeader('Accept', 'application/json'); 
+            xhr.send();
+
+        }
+        populateMaps()
+
+
+
+
+});
 
 </script>
 
