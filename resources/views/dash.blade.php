@@ -263,9 +263,8 @@
 </div>
 <script src="openseadragon.min.js"></script>
 <script type="text/javascript">
-jQuery( document ).ready(function() {
-        
-        function puls() {
+
+function puls() {
         
         $(".pulsate").jPulse({
 			color: "#FF1414",
@@ -279,7 +278,8 @@ jQuery( document ).ready(function() {
             
 		});
         }
-        
+
+jQuery( document ).ready(function() {
 
         function populateMaps() {
             var xhr = new XMLHttpRequest();
