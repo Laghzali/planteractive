@@ -455,7 +455,7 @@ function draw() {
                     for (elm in data) {
 
                         console.log(data[elm].map_overlay_id)
-                        if(sessionStorage.get('currentMap') === data[elm].map_overlay_id) {
+                        if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
                         var  pointPosition =  new OpenSeadragon.Point()
                         div = document.createElement('div')
                         div.id = data[elm].id
