@@ -194,8 +194,10 @@
         </div>
         <!--COPY RIGHT-->
         <!--CONTROLS-->
-        <div id="controls" style="width:43px;height:200px;margin-bottom:10px;padding-left:10px" class="row m-2 position-absolute bottom-0 rounded-pill">
+        <div id="controls" style="width:43px;height:250px;margin-bottom:10px;padding-left:10px" class="row m-2 position-absolute bottom-0 rounded-pill">
                     <div id="home" class="col-sm-auto pt-2"><i style="font-size:25px" class="row  fas fa-search icon controls"></i></div>
+                    <div id="rotate-left" class="col-sm-auto pt-2"><i style="font-size:25px" class="row  fas fa-undo icon controls"></i></div>
+                    <div id="rotate-right" class="col-sm-auto pt-2"><i style="font-size:25px" class="row  fas fa-undo icon controls fa-flip-horizontal"></i></div>
                     <div id="zoom-in" class="col-sm-auto"><i style="font-size:25px;" class="row  fas fa-search-plus icon controls"> </i></div>
                     <div id="zoom-out" class="col-sm-auto  mb-5 "><i style="font-size:25px;" class="row  fas fa-search-minus icon controls"> </i></div> 
                     
@@ -259,8 +261,7 @@
         },
         defaultZoomLevel : 1,
         zoomInButton:   "zoom-in",
-        rotateLeftButton : "rotate-left",
-        rotateRightButton : "rotate-right",
+
         zoomOutButton:   "zoom-out",
         homeButton:   "home",
         timeout: 100000, 

@@ -22,6 +22,8 @@ class main extends Controller
 	 
       $pdfInFile = getCWD().'/storage/'. $mapPath;
       $jpgout = storage_path('app/public/uploads/jpg/'.preg_replace('/.pdf/', '', $pdfName));
+      $rotate90 = "convert -rotate -90" . $jpgout . ' ' . $jpgout ;
+      $rotate = system($rotate90);
       $cmdJPG = 'pdftoppm -jpeg -r 72 '. $pdfInFile . ' ' . $jpgout ;
       $pdf2jpg = system($cmdJPG);
 	  $jpgout = 'storage/uploads/jpg/'.preg_replace('/.pdf/', '', $pdfName).'-1.jpg';
