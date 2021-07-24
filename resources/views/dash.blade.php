@@ -304,39 +304,6 @@
     }
 };
 
-
-    var loadMap = function(imgUrl, mapId) {
-        return function() { 
-            loader = document.createElement('div')
-            loader.classList.add('spinner')
-            img = document.createElement('img')
-            img.src = "loader.gif"
-            img.width=150;
-            img.height=150;
-            loader.appendChild(img)
-            document.body.appendChild(loader)
-            
-            loaded = false
-            viewer.close()
-            viewer.open({
-                type : 'image',
-                url : imgUrl,
-            });
-
-            viewer.world.addHandler('add-item', function (){
-                    sessionStorage.setItem('currentMap', mapId);
-                    draw()
-                    puls()
-                    loader.remove()
-            });
-         };
-        }
-
-    function unloadMap() {
-        viewer.addTiledImage({
-            tileSource: url,
-        });
-    }
     function sendForm(sym, color) {
         var image = document.getElementById('image');
         var file = image.files[0];
@@ -546,9 +513,35 @@ jQuery( document ).ready(function() {
             xhr.send();
 
         }
+        
         populateMaps()
 
+        var loadMap = function(imgUrl, mapId) {
+        return function() { 
+            loader = document.createElement('div')
+            loader.classList.add('spinner')
+            img = document.createElement('img')
+            img.src = "loader.gif"
+            img.width=150;
+            img.height=150;
+            loader.appendChild(img)
+            document.body.appendChild(loader)
+            
+            loaded = false
+            viewer.close()
+            viewer.open({
+                type : 'image',
+                url : imgUrl,
+            });
 
+            viewer.world.addHandler('add-item', function (){
+                    sessionStorage.setItem('currentMap', mapId);
+                    draw()
+                    puls()
+                    loader.remove()
+            });
+         };
+        }
 
 
 });
