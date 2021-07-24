@@ -259,9 +259,13 @@
         },
         defaultZoomLevel : 1,
         zoomInButton:   "zoom-in",
+        rotateLeftButton : "rotate-left",
+        rotateRightButton : "rotate-right",
         zoomOutButton:   "zoom-out",
         homeButton:   "home",
+        timeout: 100000, 
         showNavigationControl: true,
+        imageLoaderLimit: 1,
         id: "openseadragon",
 
     });
@@ -284,7 +288,12 @@
         //viewer.addOverlay(element, point, OpenSeadragon.Placement.CENTER);
     }
 };
-    function addMap(url) {
+    function loadMap(url) {
+        viewer.addTiledImage({
+            tileSource: url,
+        });
+    }
+    function unloadMap() {
         viewer.addTiledImage({
             tileSource: url,
         });
@@ -305,7 +314,7 @@
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
-                populateMaps();
+                drawLatest();
             }}
         xhr.open("POST", 'api/save', true);
 
