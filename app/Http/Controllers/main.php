@@ -22,7 +22,7 @@ class main extends Controller
 	 
       $pdfInFile = getCWD().'/storage/'. $mapPath;
       $jpgout = storage_path('app/public/uploads/jpg/'.preg_replace('/.pdf/', '', $pdfName));
-      $cmdJPG = 'pdftoppm -jpeg -r 120 '. $pdfInFile . ' ' . $jpgout ;
+      $cmdJPG = 'pdftoppm -jpeg -r 72 '. $pdfInFile . ' ' . $jpgout ;
       $pdf2jpg = system($cmdJPG);
 	  $jpgout = 'storage/uploads/jpg/'.preg_replace('/.pdf/', '', $pdfName).'-1.jpg';
       $map->path = $jpgout;
