@@ -389,7 +389,7 @@
                 drawLatest()
                 
             }}
-        xhr.open("POST", 'http://103.164.54.206:8000/api/new/map', true);
+        xhr.open("POST", 'api/new/map', true);
         xhr.send(form);
         
     }
