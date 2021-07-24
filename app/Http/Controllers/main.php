@@ -22,15 +22,18 @@ class main extends Controller
 	 
       $pdfInFile = getCWD().'/storage/'. $mapPath;
       $jpgout = storage_path('app/public/uploads/jpg/'.preg_replace('/.pdf/', '', $pdfName));
-      $rotate90 = "convert -rotate -90" . $jpgout . ' ' . $jpgout ;
+      $rotate90 = "convert -rotate -90 " . $jpgout . '-1.jpg ' . $jpgout. '-1.jpg ' ;
+	
       $rotate = system($rotate90);
+	  
       $cmdJPG = 'pdftoppm -jpeg -r 72 '. $pdfInFile . ' ' . $jpgout ;
       $pdf2jpg = system($cmdJPG);
 	  $jpgout = 'storage/uploads/jpg/'.preg_replace('/.pdf/', '', $pdfName).'-1.jpg';
+	   $rotate = system($rotate90);
       $map->path = $jpgout;
       $map->name = $request->map_name;
       $map->save();
-      return preg_replace('/app\/public/', '', $jpgout);
+     return preg_replace('/app\/public/', '', $jpgout);
 
     }
 
