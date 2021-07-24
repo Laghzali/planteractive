@@ -265,7 +265,6 @@
         homeButton:   "home",
         timeout: 100000, 
         showNavigationControl: true,
-        imageLoaderLimit: 1,
         id: "openseadragon",
 
     });
@@ -288,11 +287,20 @@
         //viewer.addOverlay(element, point, OpenSeadragon.Placement.CENTER);
     }
 };
-    function loadMap(url) {
-        viewer.addTiledImage({
-            tileSource: url,
+
+
+    var loadMap = function(imgUrl) {
+        return function() { 
+            viewer.close()
+            viewer.open({
+            type : 'image',
+            url : 'http://103.164.54.206:8000/'+imgUrl,
         });
-    }
+        console.log('loading' + imgUrl)
+         };
+        }
+
+
     function unloadMap() {
         viewer.addTiledImage({
             tileSource: url,
@@ -467,12 +475,15 @@ jQuery( document ).ready(function() {
                     if (xhr.readyState == XMLHttpRequest.DONE) {
                         var data = JSON.parse(xhr.responseText);
                         for(elm in data){
-                           
-                            ul.innerHTML += '<li><a  class="dropdown-item" href="#">'+data[elm].name+'</a></li>'
+                            li = document.createElement('li')
+                            li.id = "map"+data[elm].id
+                            li.innerHTML += '<a class="dropdown-item" href="#">'+data[elm].name+'</a>'
+                            li.onclick = loadMap(data[elm].path)
+                            ul.appendChild(li)
                         }
                     }
                 }
-            xhr.open("get", 'api/retrive/maps', true); 
+            xhr.open("get", 'http://103.164.54.206:8000/api/retrive/maps', true); 
             xhr.setRequestHeader('Accept', 'application/json'); 
             xhr.send();
 
