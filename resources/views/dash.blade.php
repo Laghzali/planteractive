@@ -23,21 +23,6 @@
     background-color
 }
 
-@-webkit-keyframes rotation {
-   from {-webkit-transform: rotate(0deg);}
-   to {-webkit-transform: rotate(359deg);}
-}
-@-moz-keyframes rotation {
-   from {-moz-transform: rotate(0deg);}
-   to {-moz-transform: rotate(359deg);}
-}
-@-o-keyframes rotation {
-   from {-o-transform: rotate(0deg);}
-   to {-o-transform: rotate(359deg);}
-}
-@keyframes rotation {
-   from {transform: rotate(0deg);}
-   to {transform: rotate(359deg);}
 }
     input[type="color"] {
 
@@ -225,8 +210,6 @@
         <!--CONTROLS-->
         <div id="controls" style="width:43px;height:250px;margin-bottom:10px;padding-left:10px" class="row m-2 position-absolute bottom-0 rounded-pill">
                     <div id="home" class="col-sm-auto pt-2"><i style="font-size:25px" class="row  fas fa-search icon controls"></i></div>
-                    <div id="rotate-left" class="col-sm-auto pt-2"><i style="font-size:25px" class="row  fas fa-undo icon controls"></i></div>
-                    <div id="rotate-right" class="col-sm-auto pt-2"><i style="font-size:25px" class="row  fas fa-undo icon controls fa-flip-horizontal"></i></div>
                     <div id="zoom-in" class="col-sm-auto"><i style="font-size:25px;" class="row  fas fa-search-plus icon controls"> </i></div>
                     <div id="zoom-out" class="col-sm-auto  mb-5 "><i style="font-size:25px;" class="row  fas fa-search-minus icon controls"> </i></div> 
                     
@@ -340,6 +323,7 @@
             viewer.world.addHandler('add-item', function (){
                     sessionStorage.setItem('currentMap', mapId);
                     draw()
+                    puls()
                     loader.remove()
             });
          };
@@ -512,7 +496,7 @@ jQuery( document ).ready(function() {
             
 		});
         }
-        setTimeout(puls, 1000);
+        
 
         function populateMaps() {
             var xhr = new XMLHttpRequest();
