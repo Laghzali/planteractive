@@ -10,6 +10,35 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
 <script type="text/javascript" src="jQuery.jPulse.min.js"></script>
 <style>
+.spinner {
+    text-align: center;
+    position: absolute;
+    top: 0;
+    background-color : #cacaca4f;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color
+}
+
+@-webkit-keyframes rotation {
+   from {-webkit-transform: rotate(0deg);}
+   to {-webkit-transform: rotate(359deg);}
+}
+@-moz-keyframes rotation {
+   from {-moz-transform: rotate(0deg);}
+   to {-moz-transform: rotate(359deg);}
+}
+@-o-keyframes rotation {
+   from {-o-transform: rotate(0deg);}
+   to {-o-transform: rotate(359deg);}
+}
+@keyframes rotation {
+   from {transform: rotate(0deg);}
+   to {transform: rotate(359deg);}
+}
     input[type="color"] {
 
 	width: 32px;
@@ -292,15 +321,27 @@
 
     var loadMap = function(imgUrl) {
         return function() { 
+            loader = document.createElement('div')
+            loader.classList.add('spinner')
+            img = document.createElement('img')
+            img.src = "loader.gif"
+            img.width=150;
+            img.height=150;
+            loader.appendChild(img)
+            document.body.appendChild(loader)
+            
+            loaded = false
             viewer.close()
             viewer.open({
-            type : 'image',
-            url : 'http://103.164.54.206:8000/'+imgUrl,
-        });
-        console.log('loading' + imgUrl)
+                type : 'image',
+                url : 'http://103.164.54.206:8000/'+imgUrl,
+            });
+
+            viewer.world.addHandler('add-item', function (e){
+                    document.body.removeChild(loader)
+            });
          };
         }
-
 
     function unloadMap() {
         viewer.addTiledImage({
@@ -490,6 +531,9 @@ jQuery( document ).ready(function() {
 
         }
         populateMaps()
+
+
+
 
 });
 
