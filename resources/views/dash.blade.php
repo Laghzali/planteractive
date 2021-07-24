@@ -446,8 +446,7 @@ function drawLatest(){
 
 function draw() {
     viewer.clearOverlays()
-    overlays = []
-    positions = []
+
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -480,17 +479,13 @@ function draw() {
                         pointPosition.x = data[elm].x 
                         pointPosition.y = data[elm].y
                         document.body.insertAdjacentHTML('beforeend', htmlx)
-                        span.setAttribute('onclick', "renderOverlay("+elm+")")
-                        overlays.push(div)
-                        positions.push(pointPosition)
+                        span.onclick = renderOverlay(elm)
+                        viewer.addOverlay(div, pointPosition, OpenSeadragon.Placement.CENTER)
                     }
                     }
 
             }
 
-            overlays.forEach((element , index) =>{
-                viewer.addOverlay(element, positions[index], OpenSeadragon.Placement.CENTER)
-            })
         }
 
     xhr.open("get", 'api/retrive', true); 
