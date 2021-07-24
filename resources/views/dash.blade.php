@@ -334,7 +334,7 @@
             viewer.close()
             viewer.open({
                 type : 'image',
-                url : 'http://103.164.54.206:8000/'+imgUrl,
+                url : imgUrl,
             });
 
             viewer.world.addHandler('add-item', function (){
@@ -531,7 +531,7 @@ jQuery( document ).ready(function() {
                         }
                     }
                 }
-            xhr.open("get", 'http://103.164.54.206:8000/api/retrive/maps', true); 
+            xhr.open("get", 'api/retrive/maps', true); 
             xhr.setRequestHeader('Accept', 'application/json'); 
             xhr.send();
 
