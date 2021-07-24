@@ -23,6 +23,7 @@ class CreateOverlaysTable extends Migration
             $table->text('image');
             $table->text('note');
             $table->text('name');
+            $table->text('map_id');
             $table->timestamps();
         });
     }

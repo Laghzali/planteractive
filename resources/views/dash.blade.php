@@ -319,7 +319,7 @@
 };
 
 
-    var loadMap = function(imgUrl) {
+    var loadMap = function(imgUrl, mapId) {
         return function() { 
             loader = document.createElement('div')
             loader.classList.add('spinner')
@@ -338,6 +338,7 @@
             });
 
             viewer.world.addHandler('add-item', function (e){
+                    sessionStorage.setItem('currentMap', mapId);
                     document.body.removeChild(loader)
             });
          };
@@ -360,6 +361,7 @@
         form.append('color', color)
         form.append('x', point.x)
         form.append('y', point.y)
+        form.append('map_id', sessionStorage.getItem('currentMap'))
         form.append('image', file);
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
@@ -449,8 +451,10 @@ function draw() {
     xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 var data = JSON.parse(xhr.responseText);
-                        console.log(data)
+                        var currentMap = sessionStorage.getItem('currentMap')
+
                     for (elm in data) {
+                        if(data[elm].map_id === currentMap) {
                         console.log(elm)
                         var  pointPosition =  new OpenSeadragon.Point()
                         div = document.createElement('div')
@@ -478,6 +482,7 @@ function draw() {
                         span.setAttribute('onclick', "renderOverlay("+elm+")")
                         overlays.push(div)
                         positions.push(pointPosition)
+                    }
                     }
 
             }
@@ -520,7 +525,7 @@ jQuery( document ).ready(function() {
                             li = document.createElement('li')
                             li.id = "map"+data[elm].id
                             li.innerHTML += '<a class="dropdown-item" href="#">'+data[elm].name+'</a>'
-                            li.onclick = loadMap(data[elm].path)
+                            li.onclick = loadMap(data[elm].path , data[elm].id)
                             ul.appendChild(li)
                         }
                     }

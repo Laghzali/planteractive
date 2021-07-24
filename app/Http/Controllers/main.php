@@ -54,6 +54,7 @@ class main extends Controller
             $overlay->color = $request->color;
             $overlay->name = $request->name;
             $overlay->note = $request->note;
+            $overlay->map_id = $request->map_id;
 
         $overlay->save();
     
@@ -63,7 +64,9 @@ class main extends Controller
     } else { return "err";}
     }
     public function retriveOverlay() {
-    $overlays = overlays::get()->toJson(JSON_PRETTY_PRINT);
+    //$overlays = overlays::get()->toJson(JSON_PRETTY_PRINT);
+    $overlays = overlays::selectRaw('overlays.id as overlay_id , maps.id as map_overlay_id, overlays.name')
+        ->join('maps' , 'maps.id' , '='  , 'overlays.map_id')->get()->toJson(JSON_PRETTY_PRINT);
     return response($overlays, 200);
 
     }
