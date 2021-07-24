@@ -513,7 +513,7 @@ jQuery( document ).ready(function() {
             xhr.send();
 
         }
-        
+
         populateMaps()
 
         var loadMap = function(imgUrl, mapId) {
@@ -537,8 +537,8 @@ jQuery( document ).ready(function() {
             viewer.world.addHandler('add-item', function (){
                     sessionStorage.setItem('currentMap', mapId);
                     draw()
-                    puls()
                     loader.remove()
+                    setTimeout(puls, 3000)
             });
          };
         }
