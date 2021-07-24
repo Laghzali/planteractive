@@ -337,9 +337,9 @@
                 url : 'http://103.164.54.206:8000/'+imgUrl,
             });
 
-            viewer.world.addHandler('add-item', function (e){
+            viewer.world.addHandler('add-item', function (){
                     sessionStorage.setItem('currentMap', mapId);
-                    document.body.removeChild(loader)
+                    loader.remove()
             });
          };
         }
