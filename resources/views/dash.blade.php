@@ -487,9 +487,8 @@ function draw() {
             }
 
         }
-    }
 
-    
+
     xhr.open("get", 'api/retrive', true); 
     xhr.setRequestHeader('Accept', 'application/json'); 
     xhr.send();
