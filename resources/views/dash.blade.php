@@ -264,21 +264,6 @@
 <script src="openseadragon.min.js"></script>
 <script type="text/javascript">
 
-function puls() {
-        
-        $(".pulsate").jPulse({
-			color: "#FF1414",
-            size: 150,
-			speed: 600,
-			interval: 2000,
-			left: 0,
-			top: 0,
-            zIndex:1
-
-            
-		});
-        }
-
 jQuery( document ).ready(function() {
 
         function populateMaps() {
@@ -368,7 +353,7 @@ jQuery( document ).ready(function() {
             viewer.world.addHandler('add-item', function (){
                     sessionStorage.setItem('currentMap', mapId);
                     draw()
-                    puls()
+                    setTimeout(puls, 3000)
                     loader.remove()
             });
          };
