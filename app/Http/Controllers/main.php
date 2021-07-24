@@ -24,7 +24,8 @@ class main extends Controller
       $jpgout = storage_path('app/public/uploads/jpg/'.preg_replace('/.pdf/', '', $pdfName));
       $cmdJPG = 'pdftoppm -jpeg -r 300 '. $pdfInFile . ' ' . $jpgout ;
       $pdf2jpg = system($cmdJPG);
-      $map->path = $dzout;
+	  $jpgout = 'storage/uploads/jpg/'.preg_replace('/.pdf/', '', $pdfName).'-1.jpg';
+      $map->path = $jpgout;
       $map->name = $request->map_name;
       $map->save();
       return preg_replace('/app\/public/', '', $jpgout);
