@@ -339,6 +339,7 @@
 
             viewer.world.addHandler('add-item', function (){
                     sessionStorage.setItem('currentMap', mapId);
+                    draw()
                     loader.remove()
             });
          };
@@ -498,7 +499,7 @@ function draw() {
 
 }
 jQuery( document ).ready(function() {
-        draw()
+        
         function puls() {
         
         $(".pulsate").jPulse({
