@@ -480,7 +480,7 @@ function draw() {
                         pointPosition.y = data[elm].y
                         document.body.insertAdjacentHTML('beforeend', htmlx)
                         span.setAttribute('onclick', "renderOverlay("+elm+")")
-                        viewer.addOverlay(div, pointPosition, OpenSeadragon.Placement.CENTER)
+
                     }
                     }
 
