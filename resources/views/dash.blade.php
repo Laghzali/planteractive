@@ -339,7 +339,7 @@
 
             viewer.world.addHandler('add-item', function (){
                     sessionStorage.setItem('currentMap', mapId);
-                    setTimeout(draw , 3000)
+                    draw()
                     loader.remove()
             });
          };
@@ -455,6 +455,7 @@ function draw() {
                     for (elm in data) {
 
                         console.log(data[elm].map_overlay_id)
+                        if(sessionStorage.get('currentMap') === data[elm].map_overlay_id) {
                         var  pointPosition =  new OpenSeadragon.Point()
                         div = document.createElement('div')
                         div.id = data[elm].id
@@ -481,6 +482,7 @@ function draw() {
                         span.setAttribute('onclick', "renderOverlay("+elm+")")
                         viewer.addOverlay(div, pointPosition, OpenSeadragon.Placement.CENTER)
                         console.log(div + ' ' + pointPosition )
+                    }
                     }
 
 
