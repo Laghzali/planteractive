@@ -453,7 +453,7 @@ function draw() {
                         var currentMap = sessionStorage.getItem('currentMap')
 
                     for (elm in data) {
-                        if(data[elm].map_overlay_id === currentMap) {
+
                         console.log(data[elm].map_overlay_id)
                         var  pointPosition =  new OpenSeadragon.Point()
                         div = document.createElement('div')
@@ -482,12 +482,14 @@ function draw() {
                         viewer.addOverlay(div, pointPosition, OpenSeadragon.Placement.CENTER)
                         console.log(div + ' ' + pointPosition )
                     }
-                    }
+
 
             }
 
         }
+    }
 
+    
     xhr.open("get", 'api/retrive', true); 
     xhr.setRequestHeader('Accept', 'application/json'); 
     xhr.send();
