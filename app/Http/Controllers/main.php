@@ -21,17 +21,14 @@ class main extends Controller
       $mapPath = $request->file('map_pdf')->storeAs('uploads/pdfs', $pdfName, 'public');
 	 
       $pdfInFile = getCWD().'/storage/'. $mapPath;
-      $jpgout = storage_path('app/public/uploads/jpg/'.preg_replace('/.pdf/', '', $pdfName));
-      $dzin = $jpgout.'-1.jpg';
-      $dzout = storage_path('app/public/uploads/dzi/'.preg_replace('/.pdf/', '', $pdfName . '.dzi'));
+      $jpgout = storage_path('storage/app/public/uploads/jpg/'.preg_replace('/.pdf/', '', $pdfName));
       $cmdJPG = 'pdftoppm -jpeg -r 300 '. $pdfInFile . ' ' . $jpgout ;
       $pdf2jpg = system($cmdJPG);
-      $cmdDZI = '/usr/bin/python3 ../dzi.py '.$dzin.' '.$dzout;
-      $jpg2dzi = system($cmdDZI );
-      $map->path = $dzout;
+
+      $map->path = $jpgout;
       $map->name = $request->map_name;
       $map->save();
-      return preg_replace('/app\/public/', '', $dzout);
+      return $jpgout;
 
     }
 
