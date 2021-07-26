@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
     <div style="max-height: 100vh;" id="row-main" class="row">
-      <div class="col-md-10" id="openseadragon">
+      <div class="col-md-9" id="openseadragon">
         <!--COPYRIGHTV-->
         <div id="copyright" class="row">
             <p class="col-md-6 text-muted text-center justify-content-end">© OrderAid 2021</p>
@@ -18,7 +18,7 @@
         </div> 
           <!--COPY RIGHT-->
       </div>
-        <div class="col-md-2 shadow-lg  " id="sidebar">
+        <div class="col-md-3 shadow-lg  " id="sidebar">
               <div id="header" class="col-md-12 ">
 
                   <di class="text-center "><img class="mt-10 shadow rounded" width=200 height=160 src='logo.png'></div>
