@@ -142,7 +142,7 @@ function draw() {
                        
                     for (elm in data) {
 
-                        console.log(data[elm].map_overlay_id)
+                    console.log('drawing .. map_over_id : ' + data[elm].map_overlay_id)
                     if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
                         var  pointPosition =  new OpenSeadragon.Point()
                         div = document.createElement('div')
@@ -179,7 +179,7 @@ function draw() {
         }
 
 
-    xhr.open("get", 'api/retrive', true); 
+    xhr.open("get", 'api/retrive/'+ currentMap , true); 
     xhr.setRequestHeader('Accept', 'application/json'); 
     xhr.send();
 
@@ -234,13 +234,14 @@ jQuery( document ).ready(function() {
             xhr.onreadystatechange = function() {
                     if (xhr.readyState == XMLHttpRequest.DONE) {
                         var data = JSON.parse(xhr.responseText);
-                        for(elm in data){
+                        data.forEach(array =>{
                             li = document.createElement('li')
-                            li.id = "map"+data[elm].id
-                            li.innerHTML += '<a class="dropdown-item" href="#">'+data[elm].name+'</a>'
-                            li.onclick = loadMap(data[elm].path , data[elm].id)
+                            li.id = "map"+array.id
+                            li.innerHTML += '<a class="dropdown-item" href="#">'+array.name+'</a>'
+                            li.onclick = loadMap(array.path, array.id)
                             ul.appendChild(li)
-                        }
+                            
+                        })
                     }
                 }
             xhr.open("get", 'api/retrive/maps', true); 
@@ -249,7 +250,6 @@ jQuery( document ).ready(function() {
 
         }
 
-        populateMaps()
 
         var loadMap = function(imgUrl, mapId) {
         return function() { 
@@ -270,7 +270,7 @@ jQuery( document ).ready(function() {
                 url : imgUrl,
             });
 
-            viewer.world.addHandler('add-item', function (){
+            viewer.world.addOnceHandler('add-item', function (){
                     sessionStorage.setItem('currentMap', mapId);
                     draw()
                     loader.remove()
@@ -279,5 +279,5 @@ jQuery( document ).ready(function() {
          };
         }
 
-
+populateMaps()
 });
