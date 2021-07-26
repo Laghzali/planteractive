@@ -516,7 +516,6 @@ jQuery( document ).ready(function() {
 
         }
 
-        populateMaps()
 
         var loadMap = function(imgUrl, mapId) {
         return function() { 
@@ -546,7 +545,7 @@ jQuery( document ).ready(function() {
          };
         }
 
-
+populateMaps()
 });
 </script>
 
