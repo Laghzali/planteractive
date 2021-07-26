@@ -407,7 +407,7 @@ function draw() {
                        
                     for (elm in data) {
 
-                    console.log('drawing .. map_over_id : ' +  data[elm].map_overlay_id)
+                    console.log('drawing .. map_over_id : ' + data[elm].map_overlay_id)
                     if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
                         var  pointPosition =  new OpenSeadragon.Point()
                         div = document.createElement('div')
@@ -503,7 +503,7 @@ jQuery( document ).ready(function() {
                             li = document.createElement('li')
                             li.id = "map"+data[elm].id
                             li.innerHTML += '<a class="dropdown-item" href="#">'+data[elm].name+'</a>'
-                            li.setAttribute('onclick', loadMap(data[elm].path , data[elm].id))
+                            li.onclick = loadMap(data[elm].path , data[elm].id)
                             ul.appendChild(li)
                         }
                     }
@@ -516,8 +516,8 @@ jQuery( document ).ready(function() {
 
         populateMaps()
 
-        function loadMap(imgUrl, mapId) {
-
+        var loadMap = function(imgUrl, mapId) {
+        return function() { 
             loader = document.createElement('div')
             loader.classList.add('spinner')
             img = document.createElement('img')
@@ -541,7 +541,7 @@ jQuery( document ).ready(function() {
                     loader.remove()
                     setTimeout(puls, 3000)
             });
-
+         };
         }
 
 
