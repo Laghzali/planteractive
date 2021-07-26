@@ -504,9 +504,8 @@ jQuery( document ).ready(function() {
                             li.id = "map"+data[elm].id
                             li.innerHTML += '<a class="dropdown-item" href="#">'+data[elm].name+'</a>'
                             li.onclick = (function() { 
-                                            return function() {
-                                               loadMap(data[elm].path, data[elm].id)
-                                              }
+                                            return loadMap(data[elm].path, data[elm].id)
+ 
                                           })();
 
                             ul.appendChild(li)
