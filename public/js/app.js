@@ -154,7 +154,7 @@ function draw() {
                       span.innerHTML= '<i class="'+data[elm].symbol+' pulsate customSym" ></i>'
                       span.setAttribute('id','renderer'+elm)
                       div.appendChild(span)
-                      htmlx = "<div id='parentModal' class='modal fade' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>"
+                      htmlx = "<div id='parentModal"+data.id+"' class='modal fade' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>"
                       htmlx += "  <div class='modal-dialog'>"
                       htmlx += "   <div class='modal-content'>"
                       htmlx += "     <div class='modal-header'>"
