@@ -56,6 +56,7 @@
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
                 draw();
+                
             }}
         xhr.open("POST", 'api/save', true);
 
@@ -101,37 +102,46 @@ function draw() {
                        
                     for (elm in data) {
                     console.log('drawing .. map_over_id : ' + data[elm].map_overlay_id)
-                    if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
-                        var  pointPosition =  new OpenSeadragon.Point()
-                        div = document.createElement('div')
-                        
-                        div.id = data[elm].overlay_id
-                        document.body.appendChild(div)
-                        span = document.createElement('span')
-                        span.setAttribute('style', 'z-index:12;color:#0089ff')
-                        span.innerHTML= '<i class="'+data[elm].symbol+'  customSym"><i style="filter: drop-shadow(0px);background-color:'+data[elm].color+'" class="dot pulsate"></i></i>'
-                        span.setAttribute('id','renderer'+data[elm].overlay_id)
-                        div.appendChild(span)
-                        htmlx = "<div id='parentModal" + data[elm].overlay_id + "' class='modal fade' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>"
-                        htmlx += "  <div class='modal-dialog'>"
-                        htmlx += "   <div class='modal-content'>"
-                        htmlx += "     <div class='modal-header'>"
-                        htmlx += "       <h4 id='nameField' class='modal-title nameField'>"+data[elm].name+"</h4> "
-                        htmlx += "       <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>"
-                        htmlx += "      </div>"
-                        htmlx += "     <div  class='modal-body'><img src="+data[elm].image+"  style='max-width: 100%; max-height: 100%' id='imageField' class='img-responsive'> <p class='col-md-12' id='noteField'>"+data[elm].note+ "</p> </div>"
-                        htmlx += "     <div class='modal-footer'>"
-                        htmlx += "  <button type='button' class='btn btn-danger' onclick='deleteOverlay("+data[elm].overlay_id+")' data-bs-dismiss='modal'>Delete</button>"
-                        htmlx += "   </div></div> </div></div>"
-                        pointPosition.x = data[elm].x 
-                        pointPosition.y = data[elm].y
-                        document.body.insertAdjacentHTML('beforeend', htmlx)
-                        viewer.addOverlay(div, pointPosition, OpenSeadragon.Placement.CENTER)
-                        span.setAttribute('onclick', "renderOverlay("+data[elm].overlay_id+")")
-                        console.log(div + ' ' + pointPosition )
-                    }
-                    }
+                        if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
+                            var  pointPosition =  new OpenSeadragon.Point()
+                            div = document.createElement('div')
+                            
+                            div.id = data[elm].overlay_id
+                            document.body.appendChild(div)
+                            span = document.createElement('span')
+                            span.setAttribute('style', 'z-index:12;color:#0089ff')
+                            span.innerHTML= '<i class="'+data[elm].symbol+'  customSym"><i style="filter: drop-shadow(0px);background-color:'+data[elm].color+'" class="dot pulsate"></i></i>'
+                            span.setAttribute('id','renderer'+data[elm].overlay_id)
+                            div.appendChild(span)
+                            htmlx = "<div id='parentModal" + data[elm].overlay_id + "' class='modal fade' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>"
+                            htmlx += "  <div class='modal-dialog'>"
+                            htmlx += "   <div class='modal-content'>"
+                            htmlx += "     <div class='modal-header'>"
+                            htmlx += "       <h4 id='nameField' class='modal-title nameField'>"+data[elm].name+"</h4> "
+                            htmlx += "       <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>"
+                            htmlx += "      </div>"
+                            htmlx += "     <div  class='modal-body'><img src="+data[elm].image+"  style='max-width: 100%; max-height: 100%' id='imageField' class='img-responsive'> <p class='col-md-12' id='noteField'>"+data[elm].note+ "</p> </div>"
+                            htmlx += "     <div class='modal-footer'>"
+                            htmlx += "  <button type='button' class='btn btn-danger' onclick='deleteOverlay("+data[elm].overlay_id+")' data-bs-dismiss='modal'>Delete</button>"
+                            htmlx += "   </div></div> </div></div>"
+                            pointPosition.x = data[elm].x 
+                            pointPosition.y = data[elm].y
+                            document.body.insertAdjacentHTML('beforeend', htmlx)
+                            viewer.addOverlay(div, pointPosition, OpenSeadragon.Placement.CENTER)
+                            span.setAttribute('onclick', "renderOverlay("+data[elm].overlay_id+")")
+                            console.log(div + ' ' + pointPosition )
+                            //FILLING RIGHT SIDE OVERLAYS
+                            sideOverlays = document.getElementById('sideOverlays')
+                            sideOverlays += '<a href="#" class="list-group-item list-group-item-action active" aria-current="true">'
+                            sideOverlays += '<div class="d-flex w-100 justify-content-between">'
+                            sideOverlays += '<h5 class="mb-1">'+data[elm].name+'</h5>'
+                            sideOverlays += '<small>3 days ago</small>'
+                            sideOverlays += '</div><p class="mb-1">'+data[elm].note+'</p>'
+                            sideOverlays += '<small>And some small print.</small></a>'
+                        }
 
+                    }
+                setTimeout(puls, 3000)
 
             }
 
@@ -229,7 +239,7 @@ jQuery( document ).ready(function() {
                     sessionStorage.setItem('currentMap', mapId);
                     draw()
                     loader.remove()
-                    setTimeout(puls, 3000)
+                    
             });
          };
         }
