@@ -117,7 +117,17 @@ input[type="color"] {
     z-index: 100;
     filter: drop-shadow(1px 1px 1px rgb(10, 10, 10));
 }
-
+.customSym:after {
+    content: "\2022";
+    color: Red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+    font-size: 30px;
+    letter-spacing: 0px;
+    margin-top: 0px;
+}
 .modal-content {
     width: auto;
     height: auto;
