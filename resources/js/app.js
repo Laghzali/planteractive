@@ -198,7 +198,8 @@ function deleteOverlay(id) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
                 removeElem = document.getElementById(id)
-                removeElem.style="display:none"
+                // removeElem.style="display:none"
+                removeElem.remove()
                 
                 
             }}
@@ -262,6 +263,7 @@ jQuery( document ).ready(function() {
             document.body.appendChild(loader)
             
             loaded = false
+            viewer.clearOverlays()
             viewer.close()
             viewer.open({
                 type : 'image',
