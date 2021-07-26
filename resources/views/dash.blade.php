@@ -545,9 +545,6 @@ jQuery( document ).ready(function() {
         }
 
 
-        var loadMap = function(imgUrl, mapId) {
-
-        }
 
 populateMaps()
 });
