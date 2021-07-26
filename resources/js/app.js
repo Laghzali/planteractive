@@ -135,15 +135,15 @@ function drawLatest(){
 function draw() {
     viewer.clearOverlays()
     var xhr = new XMLHttpRequest();
+    var currentMap = sessionStorage.getItem('currentMap')
     xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 var data = JSON.parse(xhr.responseText);
-                        var currentMap = sessionStorage.getItem('currentMap')
-
+                       
                     for (elm in data) {
 
                         console.log(data[elm].map_overlay_id)
-                        if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
+                    if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
                         var  pointPosition =  new OpenSeadragon.Point()
                         div = document.createElement('div')
                         div.id = data[elm].id
