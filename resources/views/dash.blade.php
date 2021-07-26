@@ -406,8 +406,6 @@ function draw() {
                 var data = JSON.parse(xhr.responseText);
                        
                     for (elm in data) {
-
-                    
                     if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
                         var  pointPosition =  new OpenSeadragon.Point()
                         div = document.createElement('div')
@@ -503,11 +501,7 @@ jQuery( document ).ready(function() {
                             li = document.createElement('li')
                             li.id = "map"+data[elm].id
                             li.innerHTML += '<a class="dropdown-item" href="#">'+data[elm].name+'</a>'
-                            li.onclick = function() {
-                                              return function() {
-                                               loadMap(data[elm].path , data[elm].id)
-                                              }
-                                            }    
+                            li.setAttribute('onclick', loadMap(data[elm].path , data[elm].id))
                             ul.appendChild(li)
                         }
                     }
