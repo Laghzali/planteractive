@@ -120,7 +120,7 @@ function draw() {
                       htmlx += "      </div>"
                       htmlx += "     <div  class='modal-body'><img src="+data[elm].image+"  style='max-width: 100%; max-height: 100%' id='imageField' class='img-responsive'> <p class='col-md-12' id='noteField'>"+data[elm].note+ "</p> </div>"
                       htmlx += "     <div class='modal-footer'>"
-                      htmlx += "  <button type='button' class='btn btn-danger' onclick='deleteOverlay("+data[elm].id+")' data-bs-dismiss='modal'>Delete</button>"
+                      htmlx += "  <button type='button' class='btn btn-danger' onclick='deleteOverlay("+data[elm].overlay_id+")' data-bs-dismiss='modal'>Delete</button>"
                       htmlx += "   </div></div> </div></div>"
                       pointPosition.x = data[elm].x 
                       pointPosition.y = data[elm].y
