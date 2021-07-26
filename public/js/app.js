@@ -155,6 +155,7 @@ function deleteOverlay(id) {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
                 // removeElem.style="display:none"
                 removeElem.remove()
+                draw()
             }}
         
         xhr.open("DELETE", 'api/delete/'+id, true);
