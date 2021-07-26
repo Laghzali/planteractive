@@ -535,7 +535,7 @@ jQuery( document ).ready(function() {
             });
 
             viewer.world.addHandler('add-item', function (){
-                    sessionStorage.setItem('currentMap', mapId);
+
                     viewer.clearOverlays()
                     draw()
                     loader.remove()
