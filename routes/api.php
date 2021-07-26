@@ -19,7 +19,7 @@ Route::post('/save' , [main::class, 'saveOverlay']);
 Route::post('/new/map' , [main::class, 'newMap2jpg']);
 Route::get('/retrive/maps' , [main::class, 'retriveMaps']);
 Route::delete('/delete/{id}' , [main::class, 'deleteOverlay']);
-Route::get('/retrive' , [main::class, 'retriveOverlay']);
+Route::get('/retrive/{map_id}' , [main::class, 'retriveOverlay']);
 Route::get('/retrive/last' , [main::class, 'retriveLastOverlay']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
