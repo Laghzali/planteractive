@@ -537,7 +537,7 @@ jQuery( document ).ready(function() {
 
             viewer.world.addOnceHandler('add-item', function (){
                     sessionStorage.setItem('currentMap', mapId);
-                    console.log('zbi')
+                    draw()
                     loader.remove()
                     setTimeout(puls, 3000)
             });
