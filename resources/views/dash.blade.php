@@ -516,8 +516,8 @@ jQuery( document ).ready(function() {
 
         populateMaps()
 
-        function loadMap (imgUrl, mapId) {
-        return function() { 
+        function loadMap(imgUrl, mapId) {
+
             loader = document.createElement('div')
             loader.classList.add('spinner')
             img = document.createElement('img')
@@ -541,7 +541,7 @@ jQuery( document ).ready(function() {
                     loader.remove()
                     setTimeout(puls, 3000)
             });
-         };
+
         }
 
 
