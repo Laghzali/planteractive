@@ -104,13 +104,12 @@ function draw() {
                     if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
                         var  pointPosition =  new OpenSeadragon.Point()
                         div = document.createElement('div')
-                        div.setAttribute('class', 'pulsate')
-                        div.style="z-index:100"
+                        
                         div.id = data[elm].overlay_id
                         document.body.appendChild(div)
                         span = document.createElement('span')
-                        span.setAttribute('style', 'z-index:99;color:'+data[elm].color)
-                        span.innerHTML= '<i class="'+data[elm].symbol+'  customSym" style="z-index: 80;"></i>'
+                        span.setAttribute('style', 'z-index:12;color:'+data[elm].color)
+                        span.innerHTML= '<i class="'+data[elm].symbol+'  customSym"><i style="'+data[elm].color+'" class="dot pulsate"></i></i>'
                         span.setAttribute('id','renderer'+data[elm].overlay_id)
                         div.appendChild(span)
                         htmlx = "<div id='parentModal" + data[elm].overlay_id + "' class='modal fade' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>"

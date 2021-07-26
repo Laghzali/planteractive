@@ -117,16 +117,20 @@ input[type="color"] {
     z-index: 100;
     filter: drop-shadow(1px 1px 1px rgb(10, 10, 10));
 }
-.customSym:after {
-    content: "\2022";
-    color: #8bada28c;
+.dot {
+    width: 15px;
+    z-index: 5;
+    height: 15px;
+    border-radius: 50%;
+    background: red;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 60px;
-    padding-bottom: 6;
+
+    padding-bottom: 7;
 }
+
 .modal-content {
     width: auto;
     height: auto;
