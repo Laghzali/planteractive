@@ -89,6 +89,11 @@ new OpenSeadragon.MouseTracker({
     clickHandler : clickHandler,
 })
 
+function renderOverlay(id){
+    $('#parentModal'+id).modal('show');
+    console.log(id)
+}
+
 function drawLatest(){
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
@@ -153,7 +158,7 @@ function draw() {
                         span.innerHTML= '<i class="'+data[elm].symbol+' pulsate customSym" ></i>'
                         span.setAttribute('id','renderer'+elm)
                         div.appendChild(span)
-                        htmlx = "<div id='parentModal"+elm+"' class='modal fade' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>"
+                        htmlx = "<div id='parentModal' class='modal fade' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>"
                         htmlx += "  <div class='modal-dialog'>"
                         htmlx += "   <div class='modal-content'>"
                         htmlx += "     <div class='modal-header'>"
@@ -182,14 +187,6 @@ function draw() {
     xhr.open("get", 'api/retrive/'+ currentMap , true); 
     xhr.setRequestHeader('Accept', 'application/json'); 
     xhr.send();
-
-}
-
-
-function renderOverlay(id){
-    $('#parentModal'+id).modal('show');
-    console.log(id)
-    
 
 }
 

@@ -11,7 +11,6 @@
 <script type="text/javascript" src="jQuery.jPulse.min.js"></script>
 
 <script>
-
     sessionStorage.setItem('sym', 'far fa-circle fa-2x');
     sessionStorage.setItem('color', 'tomato');
 </script>
