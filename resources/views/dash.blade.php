@@ -490,36 +490,34 @@ function puls() {
             
 		});
         }
+function loadMap(imgUrl, mapId) {
 
+    loader = document.createElement('div')
+    loader.classList.add('spinner')
+    img = document.createElement('img')
+    img.src = "loader.gif"
+    img.width=150;
+    img.height=150;
+    loader.appendChild(img)
+    document.body.appendChild(loader)
+
+    loaded = false
+    viewer.clearOverlays()
+    viewer.close()
+    viewer.open({
+        type : 'image',
+        url : imgUrl,
+    });
+
+    viewer.world.addHandler('add-item', function (){
+            sessionStorage.setItem('currentMap', mapId);
+            draw()
+            loader.remove()
+            setTimeout(puls, 3000)
+    });
+
+}
 jQuery( document ).ready(function() {
-
-        function loadMap(imgUrl, mapId) {
-
-            loader = document.createElement('div')
-            loader.classList.add('spinner')
-            img = document.createElement('img')
-            img.src = "loader.gif"
-            img.width=150;
-            img.height=150;
-            loader.appendChild(img)
-            document.body.appendChild(loader)
-
-            loaded = false
-            viewer.clearOverlays()
-            viewer.close()
-            viewer.open({
-                type : 'image',
-                url : imgUrl,
-            });
-
-            viewer.world.addHandler('add-item', function (){
-                    sessionStorage.setItem('currentMap', mapId);
-                    draw()
-                    loader.remove()
-                    setTimeout(puls, 3000)
-            });
-
-      }
 
         function populateMaps() {
             var xhr = new XMLHttpRequest();
