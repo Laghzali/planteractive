@@ -141,7 +141,7 @@ function draw() {
                         }
 
                     }
-                setTimeout(puls, 3000)
+                puls()
 
             }
 
