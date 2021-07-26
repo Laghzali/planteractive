@@ -23,8 +23,23 @@
 
                   <di class="text-center "><img class="mt-10 shadow rounded" width=200 height=160 src='logo.png'></div>
                    <input type="search" id="address" class="form-control" placeholder="What are you looking for?" />
-                  <div id="sideOverlays" class="list-group mt-2">
-
+                  <div  id="sideOverlays" class="list-group mt-2">
+                      <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">Overlay Name</h5>
+                          <small>3 days ago</small>
+                        </div>
+                        <p class="mb-1">Overlay Note</p>
+                        <small>And some small print.</small>
+                      </a>
+                      <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">Overlay Name</h5>
+                          <small>3 days ago</small>
+                        </div>
+                        <p class="mb-1">Overlay Note</p>
+                        <small>And some small print.</small>
+                      </a>
                     </div>
                 </div>
               

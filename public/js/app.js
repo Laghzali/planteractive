@@ -131,12 +131,23 @@ function draw() {
                             span.setAttribute('onclick', "renderOverlay("+data[elm].overlay_id+")")
                             console.log(div + ' ' + pointPosition )
                             //FILLING RIGHT SIDE OVERLAYS
-                            sideOverlays.innerHTML += '<a href="#" class="list-group-item list-group-item-action active" aria-current="true">'
-                            sideOverlays.innerHTML += '<div class="d-flex w-100 justify-content-between">'
-                            sideOverlays.innerHTML += '<h5 class="mb-1">'+data[elm].name+'</h5>'
-                            sideOverlays.innerHTML += '<small>3 days ago</small>'
-                            sideOverlays.innerHTML += '</div><p class="mb-1">'+data[elm].note+'</p>'
-                            sideOverlays.innerHTML += '<small>And some small print.</small></a>'
+                            a = document.createElement('a')
+                            div = document.createElement('div')
+                            a.setAttribute('class' , 'list-group-item list-group-item-action ')
+                            a.setAttribute('aria-current', 'true')
+
+                            div.setAttribute('class' ,  'd-flex w-100 justify-content-between')
+                            div.innerHTML = '<h5 class="mb-1">'+data[elm].name+'</h5>'
+                            div.innerHTML += '<small>3 days ago</small>'
+                            a.appendChild(div)
+                            a.innerHTML   += '<p class="mb-1">'+data[elm].note+'</p>'
+                            a.innerHTML   += '<small>And some small print.</small>'
+                            sideOverlays.appendChild(a)
+                            
+
+                            
+
+                            
                         }
 
                     }
