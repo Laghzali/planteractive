@@ -132,12 +132,12 @@ function draw() {
                             console.log(div + ' ' + pointPosition )
                             //FILLING RIGHT SIDE OVERLAYS
                             sideOverlays = document.getElementById('sideOverlays')
-                            sideOverlays += '<a href="#" class="list-group-item list-group-item-action active" aria-current="true">'
-                            sideOverlays += '<div class="d-flex w-100 justify-content-between">'
-                            sideOverlays += '<h5 class="mb-1">'+data[elm].name+'</h5>'
-                            sideOverlays += '<small>3 days ago</small>'
-                            sideOverlays += '</div><p class="mb-1">'+data[elm].note+'</p>'
-                            sideOverlays += '<small>And some small print.</small></a>'
+                            sideOverlays.innerHTML += '<a href="#" class="list-group-item list-group-item-action active" aria-current="true">'
+                            sideOverlays.innerHTML += '<div class="d-flex w-100 justify-content-between">'
+                            sideOverlays.innerHTML += '<h5 class="mb-1">'+data[elm].name+'</h5>'
+                            sideOverlays.innerHTML += '<small>3 days ago</small>'
+                            sideOverlays.innerHTML += '</div><p class="mb-1">'+data[elm].note+'</p>'
+                            sideOverlays.innerHTML += '<small>And some small print.</small></a>'
                         }
 
                     }
