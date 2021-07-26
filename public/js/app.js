@@ -130,8 +130,8 @@ function draw() {
                         pointPosition.x = data[elm].x 
                         pointPosition.y = data[elm].y
                         document.body.insertAdjacentHTML('beforeend', htmlx)
-                        span.setAttribute('onclick', "renderOverlay("+data[elm].overlay_id+")")
                         viewer.addOverlay(div, pointPosition, OpenSeadragon.Placement.CENTER)
+                        span.setAttribute('onclick', "renderOverlay("+data[elm].overlay_id+")")
                         console.log(div + ' ' + pointPosition )
                     }
                     }
@@ -155,9 +155,6 @@ function deleteOverlay(id) {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
                 // removeElem.style="display:none"
                 removeElem.remove()
-
-                
-                
             }}
         
         xhr.open("DELETE", 'api/delete/'+id, true);
