@@ -503,10 +503,8 @@ jQuery( document ).ready(function() {
                             li = document.createElement('li')
                             li.id = "map"+data[elm].id
                             li.innerHTML += '<a class="dropdown-item" href="#">'+data[elm].name+'</a>'
-
-                            document.getElementById("map"+data[elm].id).onclick = loadMap(data[elm].path , data[elm].id)
-
                             ul.appendChild(li)
+                            document.getElementById("map"+data[elm].id).onclick = loadMap(data[elm].path , data[elm].id)
                         }
                     }
                 }
