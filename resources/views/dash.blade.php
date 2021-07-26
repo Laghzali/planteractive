@@ -503,7 +503,35 @@ jQuery( document ).ready(function() {
                             li = document.createElement('li')
                             li.id = "map"+data[elm].id
                             li.innerHTML += '<a class="dropdown-item" href="#">'+data[elm].name+'</a>'
-                            li.onclick = (function(i) {return loadMap(data[elm].path, data[elm].id);})(i);
+                            li.onclick = (function(imgUrl , mapId) {
+                              return function() { 
+                                    loader = document.createElement('div')
+                                    loader.classList.add('spinner')
+                                    img = document.createElement('img')
+                                    img.src = "loader.gif"
+                                    img.width=150;
+                                    img.height=150;
+                                    loader.appendChild(img)
+                                    document.body.appendChild(loader)
+                                    
+                                    loaded = false
+                                    viewer.clearOverlays()
+                                    viewer.close()
+                                    viewer.open({
+                                        type : 'image',
+                                        url : imgUrl,
+                                    });
+
+                                    viewer.world.addHandler('add-item', function (){
+                                            sessionStorage.setItem('currentMap', mapId);
+                                            draw()
+                                            loader.remove()
+                                            setTimeout(puls, 3000)
+                                    });
+                                };
+
+
+                            })(data[elm].path, data[elm].id);
                              
                             ul.appendChild(li)
                             
@@ -518,31 +546,7 @@ jQuery( document ).ready(function() {
 
 
         var loadMap = function(imgUrl, mapId) {
-        return function() { 
-            loader = document.createElement('div')
-            loader.classList.add('spinner')
-            img = document.createElement('img')
-            img.src = "loader.gif"
-            img.width=150;
-            img.height=150;
-            loader.appendChild(img)
-            document.body.appendChild(loader)
-            
-            loaded = false
-            viewer.clearOverlays()
-            viewer.close()
-            viewer.open({
-                type : 'image',
-                url : imgUrl,
-            });
 
-            viewer.world.addHandler('add-item', function (){
-                    sessionStorage.setItem('currentMap', mapId);
-                    draw()
-                    loader.remove()
-                    setTimeout(puls, 3000)
-            });
-         };
         }
 
 populateMaps()
