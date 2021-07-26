@@ -535,7 +535,7 @@ jQuery( document ).ready(function() {
                 url : imgUrl,
             });
 
-            viewer.world.addHandler('add-item', function (){
+            viewer.world.addOnceHandler('add-item', function (){
                     sessionStorage.setItem('currentMap', mapId);
                     console.log('zbi')
                     loader.remove()
