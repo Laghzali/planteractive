@@ -104,7 +104,7 @@ function draw() {
                   if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
                       var  pointPosition =  new OpenSeadragon.Point()
                       div = document.createElement('div')
-                      div.id = data[elm].id
+                      div.id = data[elm].overlay_id
                       document.body.appendChild(div)
                       span = document.createElement('span')
                       span.setAttribute('style', 'color:'+data[elm].color)
@@ -152,9 +152,9 @@ function deleteOverlay(id) {
       xhr.onreadystatechange = function() {
           if (xhr.readyState == XMLHttpRequest.DONE) { 
               removeElem = document.getElementById(id)
-              // removeElem.style="display:none"
+              removeElem.style="display:none"
               removeElem.remove()
-              
+
               
           }}
       
