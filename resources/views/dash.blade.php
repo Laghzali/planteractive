@@ -490,33 +490,7 @@ function puls() {
             
 		});
         }
-function loadMap(imgUrl, mapId) {
 
-    loader = document.createElement('div')
-    loader.classList.add('spinner')
-    img = document.createElement('img')
-    img.src = "loader.gif"
-    img.width=150;
-    img.height=150;
-    loader.appendChild(img)
-    document.body.appendChild(loader)
-
-    loaded = false
-    viewer.clearOverlays()
-    viewer.close()
-    viewer.open({
-        type : 'image',
-        url : imgUrl,
-    });
-
-    viewer.world.addHandler('add-item', function (){
-            sessionStorage.setItem('currentMap', mapId);
-            draw()
-            loader.remove()
-            setTimeout(puls, 3000)
-    });
-
-}
 jQuery( document ).ready(function() {
 
         function populateMaps() {
@@ -528,7 +502,8 @@ jQuery( document ).ready(function() {
                         data.forEach(array =>{
                             li = document.createElement('li')
                             li.id = "map"+array.id
-                            li.innerHTML += '<a onclick="loadMap(\''+ array.path +'\','+ array.id+')" class="dropdown-item" href="#">'+array.name+'</a>'
+                            li.innerHTML += '<a onclick='' class="dropdown-item" href="#">'+array.name+'</a>'
+                            li.onclick = loadMap(array.path, array.id)
                             ul.appendChild(li)
                             
                         })
@@ -538,6 +513,35 @@ jQuery( document ).ready(function() {
             xhr.setRequestHeader('Accept', 'application/json'); 
             xhr.send();
 
+        }
+
+
+        var loadMap = function(imgUrl, mapId) {
+        return function() { 
+            loader = document.createElement('div')
+            loader.classList.add('spinner')
+            img = document.createElement('img')
+            img.src = "loader.gif"
+            img.width=150;
+            img.height=150;
+            loader.appendChild(img)
+            document.body.appendChild(loader)
+            
+            loaded = false
+            viewer.clearOverlays()
+            viewer.close()
+            viewer.open({
+                type : 'image',
+                url : imgUrl,
+            });
+
+            viewer.world.addHandler('add-item', function (){
+                    sessionStorage.setItem('currentMap', mapId);
+                    draw()
+                    loader.remove()
+                    setTimeout(puls, 3000)
+            });
+         };
         }
 
 populateMaps()
