@@ -96,10 +96,10 @@ function draw() {
     viewer.clearOverlays()
     var xhr = new XMLHttpRequest();
     var currentMap = sessionStorage.getItem('currentMap')
+    sideOverlays = document.getElementById('sideOverlays')
     xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 var data = JSON.parse(xhr.responseText);
-                       
                     for (elm in data) {
                     console.log('drawing .. map_over_id : ' + data[elm].map_overlay_id)
                         if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
@@ -131,7 +131,6 @@ function draw() {
                             span.setAttribute('onclick', "renderOverlay("+data[elm].overlay_id+")")
                             console.log(div + ' ' + pointPosition )
                             //FILLING RIGHT SIDE OVERLAYS
-                            sideOverlays = document.getElementById('sideOverlays')
                             sideOverlays.innerHTML += '<a href="#" class="list-group-item list-group-item-action active" aria-current="true">'
                             sideOverlays.innerHTML += '<div class="d-flex w-100 justify-content-between">'
                             sideOverlays.innerHTML += '<h5 class="mb-1">'+data[elm].name+'</h5>'
