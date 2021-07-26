@@ -155,6 +155,7 @@ function deleteOverlay(id) {
                 removeElem = document.getElementById(id)
                 // removeElem.style="display:none"
                 removeElem.remove()
+                draw()
                 
                 
             }}
