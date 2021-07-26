@@ -117,7 +117,7 @@ function draw() {
                             htmlx += "  <div class='modal-dialog'>"
                             htmlx += "   <div class='modal-content'>"
                             htmlx += "     <div class='modal-header'>"
-                            htmlx += "       <h4 id='nameField' class='modal-title nameField'>"+data[elm].name+"</h4> "
+                            htmlx += "      <h4 id='nameField' class='modal-title nameField'>"+data[elm].name+"</h4> "
                             htmlx += "       <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>"
                             htmlx += "      </div>"
                             htmlx += "     <div  class='modal-body'><img src="+data[elm].image+"  style='max-width: 100%; max-height: 100%' id='imageField' class='img-responsive'> <p class='col-md-12' id='noteField'>"+data[elm].note+ "</p> </div>"
