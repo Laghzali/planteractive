@@ -149,13 +149,13 @@ function draw() {
 }
 
 function deleteOverlay(id) {
+    removeElem = document.getElementById(id)
     var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
-                removeElem = document.getElementById(id)
                 // removeElem.style="display:none"
                 removeElem.remove()
-                draw()
+
                 
                 
             }}
