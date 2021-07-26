@@ -152,7 +152,6 @@ function deleteOverlay(id) {
       xhr.onreadystatechange = function() {
           if (xhr.readyState == XMLHttpRequest.DONE) { 
               removeElem = document.getElementById(id)
-              removeElem.style="display:none"
               removeElem.remove()
 
               
