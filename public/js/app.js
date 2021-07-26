@@ -89,10 +89,6 @@ new OpenSeadragon.MouseTracker({
     clickHandler : clickHandler,
 })
 
-function renderOverlay(id){
-    $('#parentModal'+id).modal('show');
-    console.log(id)
-}
 
 
 function draw() {
@@ -148,14 +144,19 @@ function draw() {
 
 }
 
+function renderOverlay(id){
+    $('#parentModal'+id).modal('show');
+    console.log(id)
+}
+
 function deleteOverlay(id) {
     removeElem = document.getElementById(id)
     var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
-                // removeElem.style="display:none"
+                removeElem.style="display:none"
                 removeElem.remove()
-                draw()
+
             }}
         
         xhr.open("DELETE", 'api/delete/'+id, true);
