@@ -63,8 +63,6 @@ input[type="color"] {
     height: 32px;
 }
 
-.profile {
-}
 .controls {
     color: grey;
 }
@@ -73,8 +71,6 @@ input[type="color"] {
     color: tomato;
 }
 
-#controls {
-}
 .icon:active {
     color: Red;
 }
