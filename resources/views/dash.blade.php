@@ -528,7 +528,7 @@ jQuery( document ).ready(function() {
                         data.forEach(array =>{
                             li = document.createElement('li')
                             li.id = "map"+array.id
-                            li.innerHTML += '<a onclick="loadMap('+ array.path +','+ array.id+')" class="dropdown-item" href="#">'+array.name+'</a>'
+                            li.innerHTML += '<a onclick="loadMap("'+ array.path +'","'+ array.id+'")" class="dropdown-item" href="#">'+array.name+'</a>'
                             ul.appendChild(li)
                             
                         })
