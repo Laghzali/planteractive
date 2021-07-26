@@ -109,7 +109,7 @@ function draw() {
                     if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
                         var  pointPosition =  new OpenSeadragon.Point()
                         div = document.createElement('div')
-                        div.id = data[elm].map_overlay_id
+                        div.id = elm
                         document.body.appendChild(div)
                         span = document.createElement('span')
                         span.setAttribute('style', 'color:'+data[elm].color)
@@ -125,12 +125,12 @@ function draw() {
                         htmlx += "      </div>"
                         htmlx += "     <div  class='modal-body'><img src="+data[elm].image+"  style='max-width: 100%; max-height: 100%' id='imageField' class='img-responsive'> <p class='col-md-12' id='noteField'>"+data[elm].note+ "</p> </div>"
                         htmlx += "     <div class='modal-footer'>"
-                        htmlx += "  <button type='button' class='btn btn-danger' onclick='deleteOverlay("+data[elm].map_overlay_id+")' data-bs-dismiss='modal'>Delete</button>"
+                        htmlx += "  <button type='button' class='btn btn-danger' onclick='deleteOverlay("+elm+")' data-bs-dismiss='modal'>Delete</button>"
                         htmlx += "   </div></div> </div></div>"
                         pointPosition.x = data[elm].x 
                         pointPosition.y = data[elm].y
                         document.body.insertAdjacentHTML('beforeend', htmlx)
-                        span.setAttribute('onclick', "renderOverlay("+data[elm].map_overlay_id+")")
+                        span.setAttribute('onclick', "renderOverlay("+elm+")")
                         viewer.addOverlay(div, pointPosition, OpenSeadragon.Placement.CENTER)
                         console.log(div + ' ' + pointPosition )
                     }
