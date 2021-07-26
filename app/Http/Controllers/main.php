@@ -65,8 +65,8 @@ class main extends Controller
     }
     public function retriveOverlay(Request $request) {
     //$overlays = overlays::get()->toJson(JSON_PRETTY_PRINT);
-    $overlays = overlays::selectRaw('overlays.id as overlay_id , maps.id as map_overlay_id, overlays.name , overlays.x , overlays.y , overlays.symbol , overlays.image , overlays.note , overlays.color')
-        ->join('maps' , 'maps.id' , '='  , 'overlays.map_id')->where('map_overlay_id' , $request->map_id)->get()->toJson(JSON_PRETTY_PRINT);
+    $overlays = maps::selectRaw('overlays.id as overlay_id , maps.id as map_overlay_id, overlays.name , overlays.x , overlays.y , overlays.symbol , overlays.image , overlays.note , overlays.color')
+        ->join('overlays' , 'maps.id' , '='  , 'overlays.map_id')->where('map_overlay_id' , $request->map_id)->get()->toJson(JSON_PRETTY_PRINT);
     return response($overlays, 200);
 
     }
