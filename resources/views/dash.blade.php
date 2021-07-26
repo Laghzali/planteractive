@@ -406,6 +406,8 @@ function draw() {
                 var data = JSON.parse(xhr.responseText);
                        
                     for (elm in data) {
+
+                    console.log('drawing .. map_over_id : ' +  data[elm].map_overlay_id)
                     if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
                         var  pointPosition =  new OpenSeadragon.Point()
                         div = document.createElement('div')
@@ -514,7 +516,7 @@ jQuery( document ).ready(function() {
 
         populateMaps()
 
-        var loadMap = function(imgUrl, mapId) {
+        function loadMap (imgUrl, mapId) {
         return function() { 
             loader = document.createElement('div')
             loader.classList.add('spinner')
@@ -535,6 +537,7 @@ jQuery( document ).ready(function() {
 
             viewer.world.addHandler('add-item', function (){
                     sessionStorage.setItem('currentMap', mapId);
+                    draw()
                     loader.remove()
                     setTimeout(puls, 3000)
             });
