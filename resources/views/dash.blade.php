@@ -397,48 +397,39 @@ function drawLatest(){
 }
 
 
-function draw() {
+function draw(currentMap) {
     viewer.clearOverlays()
     var xhr = new XMLHttpRequest();
-    var currentMap = sessionStorage.getItem('currentMap')
     xhr.onreadystatechange = function() {
-            if (xhr.readyState == XMLHttpRequest.DONE) {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
                 var data = JSON.parse(xhr.responseText);
-                       
-                    data.forEach(overmap, elm => {
-
-                    console.log('drawing .. map_over_id : ' + overmap.map_overlay_id)
-
-                    if(sessionStorage.getItem('currentMap') === overmap.map_overlay_id) {
+                      if(currentMap === sessionStorage.getItem('currentMap'))  {
                         var  pointPosition =  new OpenSeadragon.Point()
                         div = document.createElement('div')
-                        div.id = overmap.id
+                        div.id = data.id
                         document.body.appendChild(div)
                         span = document.createElement('span')
-                        span.setAttribute('style', 'color:'+overmap.color)
-                        span.innerHTML= '<i class="'+overmap.symbol+' pulsate customSym" ></i>'
-                        span.setAttribute('id','renderer'+elm)
+                        span.setAttribute('style', 'color:'+data.color)
+                        span.innerHTML= '<i class="'+data.symbol+' pulsate customSym" ></i>'
+                        span.setAttribute('id','renderer')
                         div.appendChild(span)
-                        htmlx = "<div id='parentModal"+elm+"' class='modal fade' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>"
+                        htmlx = "<div id='parentModal"+data.id+"' class='modal fade' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>"
                         htmlx += "  <div class='modal-dialog'>"
                         htmlx += "   <div class='modal-content'>"
                         htmlx += "     <div class='modal-header'>"
-                        htmlx += "       <h4 id='nameField' class='modal-title nameField'>"+overmap.name+"</h4> "
+                        htmlx += "       <h4 id='nameField' class='modal-title nameField'>"+data.name+"</h4> "
                         htmlx += "       <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>"
                         htmlx += "      </div>"
-                        htmlx += "     <div  class='modal-body'><img src="+overmap.image+"  style='max-width: 100%; max-height: 100%' id='imageField' class='img-responsive'> <p class='col-md-12' id='noteField'>"+overmap.note+ "</p> </div>"
+                        htmlx += "     <div  class='modal-body'><img src="+data.image+"  style='max-width: 100%; max-height: 100%' id='imageField' class='img-responsive'> <p class='col-md-12' id='noteField'>"+data.note+ "</p> </div>"
                         htmlx += "     <div class='modal-footer'>"
-                        htmlx += "  <button type='button' class='btn btn-danger' onclick='deleteOverlay("+overmap.id+")' data-bs-dismiss='modal'>Delete</button>"
+                        htmlx += "  <button type='button' class='btn btn-danger' onclick='deleteOverlay("+data.id+")' data-bs-dismiss='modal'>Delete</button>"
                         htmlx += "   </div></div> </div></div>"
-                        pointPosition.x = overmap.x 
-                        pointPosition.y = overmap.y
+                        pointPosition.x = data.x 
+                        pointPosition.y = data.y
                         document.body.insertAdjacentHTML('beforeend', htmlx)
-                        span.setAttribute('onclick', "renderOverlay("+elm+")")
+                        span.setAttribute('onclick', "renderOverlay("+data.id+")")
                         viewer.addOverlay(div, pointPosition, OpenSeadragon.Placement.CENTER)
-                        console.log(div + ' ' + pointPosition )
-                    }
-                    })
-
+                      }
 
             }
 
@@ -538,7 +529,7 @@ jQuery( document ).ready(function() {
 
             viewer.world.addHandler('add-item', function (){
                     sessionStorage.setItem('currentMap', mapId);
-                    draw()
+                    draw(mapId)
                     loader.remove()
                     setTimeout(puls, 3000)
             });
