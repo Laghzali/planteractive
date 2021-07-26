@@ -1,2 +1,4 @@
 FIX OVERLAY DUPLICATE
 LEFT SIDE PANEL OVERLAYS LIST >> DRAG 
+
+onclick='deleteOverlay("+data.id+")'
