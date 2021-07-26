@@ -119,14 +119,13 @@ input[type="color"] {
 }
 .customSym:after {
     content: "\2022";
-    color: Red;
+    color: #8bada28c;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(90deg);
-    font-size: 30px;
-    letter-spacing: 0px;
-    margin-top: 0px;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    padding-bottom: 6;
 }
 .modal-content {
     width: auto;
