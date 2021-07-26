@@ -407,8 +407,8 @@ function draw() {
                        
                     for (elm in data) {
 
-                        if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
-                          
+                        if(currentMap === data[elm].map_overlay_id) {
+                           
                             console.log('drawing')
                             var  pointPosition =  new OpenSeadragon.Point()
                             div = document.createElement('div')
@@ -535,7 +535,7 @@ jQuery( document ).ready(function() {
             });
 
             viewer.world.addHandler('add-item', function (){
-
+                    sessionStorage.setItem('currentMap', mapId);
                     viewer.clearOverlays()
                     draw()
                     loader.remove()
