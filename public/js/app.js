@@ -89,10 +89,6 @@ new OpenSeadragon.MouseTracker({
   clickHandler : clickHandler,
 })
 
-function renderOverlay(id){
-  $('#parentModal'+id).modal('show');
-  console.log(id)
-}
 
 function drawLatest(){
   var xhr = new XMLHttpRequest();
@@ -205,7 +201,10 @@ function deleteOverlay(id) {
       xhr.send();
 }
 
-
+function renderOverlay(id){
+  $('#parentModal'+id).modal('show');
+  console.log(id)
+}
 
 
 function puls() {
