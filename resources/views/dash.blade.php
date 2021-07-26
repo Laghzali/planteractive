@@ -444,7 +444,7 @@ function draw() {
         }
 
 
-    xhr.open("get", 'api/retrive', true); 
+    xhr.open("get", 'api/retrive/'+ currentMap , true); 
     xhr.setRequestHeader('Accept', 'application/json'); 
     xhr.send();
 
