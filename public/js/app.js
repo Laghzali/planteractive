@@ -20,7 +20,6 @@
     });
 
 
-
     var  point = new OpenSeadragon.Point()
 
 	var clickHandler = (event) => {

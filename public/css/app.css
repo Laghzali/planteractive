@@ -148,3 +148,8 @@ input[type="color"] {
 #sidebar {
     height: 100vh;
 }
+
+#sideOverlays {
+    overflow-y: scroll;
+    max-height: 75vh;
+}
