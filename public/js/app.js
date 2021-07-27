@@ -344,7 +344,13 @@ function sideOverClicked(id, name , image , note , color , symbol , map_id){
     sessionStorage.setItem('over_symbol' , symbol)
     sessionStorage.setItem('map_id' , map_id)
     //sessionStorage.setItem('clicked' , true)
-    clicked = true
-    $(id+'.active').removeClass("active");
-    $(id).addClass("active");
+    if(clicked === false) {
+        clicked = true 
+        $(id).addClass("active");
+    } else {
+        $(id+'.active').removeClass("active");
+        clicked = false
+    }
+
+   
 }
