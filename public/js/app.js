@@ -215,13 +215,14 @@ function seekAndDestroy() {
                                 note = array.note
                                 //FILLING RIGHT SIDE OVERLAYS
                                 a = document.createElement('a')
-                                
+                                a.id = "sideOver"+array.overlay_id
                                 div = document.createElement('div')
                                 a.setAttribute('class' , 'list-group-item list-group-item-action ')
                                 a.setAttribute('aria-current', 'true')
+                                a.setAttribute('onclick', 'sideOverClicked(sideOver'+array.overlay_id+',"'+array.name+'","'+array.image+'","'+array.note+'","'+array.color+'","'+array.symbol+'","'+array.map_overlay_id+'")')
                                 div.setAttribute('class' ,  'd-flex w-100 justify-content-between')
                                 div.innerHTML = '<h5 class="mb-1">'+name+'</h5>'
-                                div.innerHTML += '<small><i style="color:'+color+'" class="'+symbol+'  customSym"></small>'
+                                div.innerHTML += '<small><i onclick="renderOverlay('+array.overlay_id+')" style="color:'+color+'" class="'+symbol+' customSym" ></small>'
                                 a.appendChild(div)
                                 a.innerHTML   += '<p class="mb-1">'+note+'</p>'
                                 a.innerHTML   += '<small>And some small print.</small>'
