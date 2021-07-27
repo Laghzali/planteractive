@@ -200,6 +200,7 @@ function draw() {
 
 
 function seekAndDestroy() {
+        sideOverlays.innerHTML = null
         searchField = document.getElementById('search')
         var xhr = new XMLHttpRequest();
         sideOverlays = document.getElementById('sideOverlays')
