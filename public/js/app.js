@@ -1,5 +1,5 @@
 
-
+    var clicked = false;
     var viewer = OpenSeadragon({
         visibilityRatio: 1.0,
         constrainDuringPan: true,
@@ -32,8 +32,35 @@
         point.y = element_position.y
 
     if (event.shift) {
+        if(clicked === true) {
+            console.log('here')
+            name   =   sessionStorage.getItem('name')
+            image  =   sessionStorage.getItem('image')
+            note   =   sessionStorage.getItem('note')
+            color  =   sessionStorage.getItem('color')
+            symbol =   sessionStorage.getItem('symbol')
+            map_id =   sessionStorage.getItem('map_id')
+            form = new FormData()
+            form.append('note', note)
+            form.append('name', name)
+            form.append('symbol', symbol)
+            form.append('color', color)
+            form.append('x', point.x)
+            form.append('y', point.y)
+            form.append('map_id', map_id)
+            form.append('image', image);
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == XMLHttpRequest.DONE) { 
+                    draw();
+                    
+                }}
+            xhr.open("POST", 'api/save', true);
+    
+            xhr.send(form);
+        } else {
         $('#dataSend').modal('show');
-        //viewer.addOverlay(element, point, OpenSeadragon.Placement.CENTER);
+        }
     }
 };
 
@@ -134,9 +161,10 @@ function draw() {
                             div = document.createElement('div')
                             a.setAttribute('class' , 'list-group-item list-group-item-action ')
                             a.setAttribute('aria-current', 'true')
+                            a.setAttribute('onclick', 'sideOverClicked('+a.id+',"'+data[elm].name+'","'+data[elm].image+'","'+data[elm].note+'","'+data[elm].symbol+'","'+data[elm].color+'","'+data[elm].map_overlay_id+'")')
                             div.setAttribute('class' ,  'd-flex w-100 justify-content-between')
                             div.innerHTML = '<h5 class="mb-1">'+data[elm].name+'</h5>'
-                            div.innerHTML += '<small><i style="color:'+data[elm].color+'" class="'+data[elm].symbol+'  customSym"></small>'
+                            div.innerHTML += '<small><i style="color:'+data[elm].color+'" onclick="renderOverlay('+data[elm].overlay_id+')" class="'+data[elm].symbol+'  customSym"></small>'
                             a.appendChild(div)
                             a.innerHTML   += '<p class="mb-1">'+data[elm].note+'</p>'
                             a.innerHTML   += '<small>And some small print.</small>'
@@ -249,6 +277,7 @@ function puls() {
 
 jQuery( document ).ready(function() {
 
+
         function populateMaps() {
             var xhr = new XMLHttpRequest();
             ul = document.getElementById('mapsList')
@@ -302,3 +331,17 @@ jQuery( document ).ready(function() {
 
 populateMaps()
 });
+
+function sideOverClicked(id, name , image , note , color , symbol , map_id){
+
+    sessionStorage.setItem('name' , name)
+    sessionStorage.setItem('image' , image)
+    sessionStorage.setItem('note' , note)
+    sessionStorage.setItem('color' , color)
+    sessionStorage.setItem('symbol' , symbol)
+    sessionStorage.setItem('map_id' , map_id)
+    //sessionStorage.setItem('clicked' , true)
+    clicked = true
+    $(id+'.active').removeClass("active");
+    $(id).addClass("active");
+}

@@ -24,7 +24,7 @@
                   <img class="mt-10 shadow rounded" width=200 height=160 src='logo.png'>
                 </div>
                 <div class="input-group">
-                   <input type="search" id="search" class="form-control" placeholder="What are you looking for?" />
+                   <input type="search" id="search" onclick="seekAndDestroy()" class="form-control" placeholder="What are you looking for?" />
                         <span id="clearSearch" class="input-group-btn">
                           <button onclick="draw()" class="btn btn-default" type="submit">
                               <i class="fas fa-sync"></i>

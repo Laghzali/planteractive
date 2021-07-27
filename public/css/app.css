@@ -170,5 +170,5 @@ input[type="color"] {
 
 #sideOverlays {
     overflow-y: scroll;
-    max-height: 75vh;
+    max-height: 70%;
 }
