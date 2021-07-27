@@ -109,8 +109,8 @@ function draw() {
                             div.id = data[elm].overlay_id
                             document.body.appendChild(div)
                             span = document.createElement('span')
-                            span.setAttribute('style', 'z-index:12;color:#0089ff')
-                            span.innerHTML= '<i class="'+data[elm].symbol+'  customSym"><i style="filter: drop-shadow(0px);background-color:'+data[elm].color+'" class="dot pulsate"></i></i>'
+                            span.setAttribute('style', 'z-index:12;color:'+data[elm].color+'')
+                            span.innerHTML= '<i class="'+data[elm].symbol+' customSym"><i class=" dot pulsate"></i></i>'
                             span.setAttribute('id','renderer'+data[elm].overlay_id)
                             div.appendChild(span)
                             htmlx = "<div id='parentModal" + data[elm].overlay_id + "' class='modal fade' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>"
@@ -138,7 +138,7 @@ function draw() {
 
                             div.setAttribute('class' ,  'd-flex w-100 justify-content-between')
                             div.innerHTML = '<h5 class="mb-1">'+data[elm].name+'</h5>'
-                            div.innerHTML += '<small>3 days ago</small>'
+                            div.innerHTML += '<small><i style="color:'+data[elm].color+'" class="'+data[elm].symbol+'  customSym"></small>'
                             a.appendChild(div)
                             a.innerHTML   += '<p class="mb-1">'+data[elm].note+'</p>'
                             a.innerHTML   += '<small>And some small print.</small>'
