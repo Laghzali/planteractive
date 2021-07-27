@@ -212,7 +212,7 @@ function seekAndDestroy() {
                     sideOverlays.innerHTML = null
                     var searchTerm = new RegExp(value);
                     data.forEach(array => {
-                        console.log(searchTerm)
+                        console.log(array.name)
                         found = array.name.match(searchTerm);
                         console.log(found)
                         if(found && searchTerm != '/(?:)/'){        
