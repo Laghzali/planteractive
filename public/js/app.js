@@ -36,7 +36,7 @@
         
     if (event.shift) {
         if(clicked === true) {
-            console.log('here')
+        
             name   =   sessionStorage.getItem('name')
             image  =   sessionStorage.getItem('image')
             note   =   sessionStorage.getItem('note')
@@ -133,7 +133,7 @@ function draw() {
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 var data = JSON.parse(xhr.responseText);
                     for (elm in data) {
-                    console.log('drawing .. map_over_id : ' + data[elm].map_overlay_id)
+
                         if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
                             var  pointPosition =  new OpenSeadragon.Point()
                             div = document.createElement('div')
@@ -161,7 +161,7 @@ function draw() {
                             document.body.insertAdjacentHTML('beforeend', htmlx)
                             viewer.addOverlay(div, pointPosition, OpenSeadragon.Placement.CENTER)
                             span.setAttribute('onclick', "renderOverlay("+data[elm].overlay_id+")")
-                            console.log(div + ' ' + pointPosition )
+
                             //FILLING RIGHT SIDE OVERLAYS
                            
                             a = document.createElement('a')
@@ -206,11 +206,11 @@ function seekAndDestroy() {
 
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
-                var data = JSON.parse(xhr.responseText);
-                sideOverlays.innerHTML = null
+               
                 $( searchField).on('input', function() { 
-                    value = searchField.value
                    
+                    var data = JSON.parse(xhr.responseText);
+                    value = searchField.value
                     var searchTerm = new RegExp(value);
                     data.forEach(array => {
                         found = array.name.match(searchTerm);
@@ -233,10 +233,7 @@ function seekAndDestroy() {
                             a.innerHTML   += '<p class="mb-1">'+note+'</p>'
                             a.innerHTML   += '<small>And some small print.</small>'
                             sideOverlays.appendChild(a)
-                        } else {
-                        sideOverlays.innerHTML = null
-                        }
-            
+                        } 
                     })
             
             
@@ -252,7 +249,7 @@ function seekAndDestroy() {
 
 function renderOverlay(id){
     $('#parentModal'+id).modal('show');
-    console.log(id)
+
 }
 
 function deleteOverlay(id) {
