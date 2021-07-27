@@ -64,7 +64,6 @@
         
     }
 
-
     function uploadPdf() {
         var image = document.getElementById('map_pdf');
         var file = image.files[0];
@@ -83,13 +82,11 @@
         
     }
 
-
 new OpenSeadragon.MouseTracker({
     element : viewer.canvas,
 
     clickHandler : clickHandler,
 })
-
 
 
 function draw() {
