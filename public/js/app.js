@@ -208,13 +208,13 @@ function seekAndDestroy() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
                 var data = JSON.parse(xhr.responseText);
                 $( searchField).on('input', function() { 
-
                     value = searchField.value
                     sideOverlays.innerHTML = null
                     var searchTerm = new RegExp(value);
-                    
                     data.forEach(array => {
+                        console.log(searchTerm)
                         found = array.name.match(searchTerm);
+                        console.log(found)
                         if(found && searchTerm != '/(?:)/'){        
                             name = array.name;
                             color = array.color
