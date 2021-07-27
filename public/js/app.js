@@ -1,5 +1,7 @@
 
     var clicked = false;
+    const loading = new Event('loading');
+    const notloading = new Event('notloading')
     var viewer = OpenSeadragon({
         visibilityRatio: 1.0,
         constrainDuringPan: true,
@@ -67,6 +69,7 @@
 };
 
     function sendForm(sym, color) {
+        document.dispatchEvent(loading);
         var image = document.getElementById('image');
         var file = image.files[0];
         note =  document.getElementById('note').value
@@ -83,7 +86,7 @@
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
-
+                document.dispatchEvent(notloading);
                 draw();
                 
             }}
@@ -94,6 +97,7 @@
     }
 
     function uploadPdf() {
+        document.dispatchEvent(loading);
         var image = document.getElementById('map_pdf');
         var file = image.files[0];
         name =  document.getElementById('map_name').value 
@@ -103,6 +107,7 @@
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
+                document.dispatchEvent(notloading);
                 drawLatest()
                 
             }}
@@ -280,7 +285,20 @@ function puls() {
         }
 
 jQuery( document ).ready(function() {
-
+        
+         document.addEventListener('loading', function (e) {
+            loader = document.createElement('div')
+            loader.classList.add('spinner')
+            loader.id = "timewaster"
+            img = document.createElement('img')
+            img.src = "loader.gif"
+            img.width=150;
+            img.height=150;
+            loader.appendChild(img)
+            document.body.appendChild(loader)  
+        }, false);
+        
+        document.addEventListener('notloading', function (e) { document.getElementById('timewaster').remove() }, false);
 
         function populateMaps() {
             var xhr = new XMLHttpRequest();
