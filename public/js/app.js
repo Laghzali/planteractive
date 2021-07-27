@@ -203,48 +203,52 @@ function seekAndDestroy() {
         searchField = document.getElementById('search')
         var xhr = new XMLHttpRequest();
         sideOverlays = document.getElementById('sideOverlays')
-        $( searchField).on('input', function() { 
-                value = searchField.value
-                sideOverlays.innerHTML = null
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == XMLHttpRequest.DONE) { 
-                        var data = JSON.parse(xhr.responseText);
-                        var searchTerm = new RegExp(value);
-                        data.forEach(array => {
-                            found = array.name.match(searchTerm);
-                            if(found && searchTerm != '/(?:)/'){
-                                
-                                name = array.name;
-                                color = array.color
-                                symbol = array.symbol
-                                note = array.note
-                                //FILLING RIGHT SIDE OVERLAYS
-                                a = document.createElement('a')
-                                a.id = "sideOver"+array.overlay_id
-                                div = document.createElement('div')
-                                a.setAttribute('class' , 'list-group-item list-group-item-action ')
-                                a.setAttribute('aria-current', 'true')
-                                a.setAttribute('onclick', 'sideOverClicked(sideOver'+array.overlay_id+',"'+array.name+'","'+array.image+'","'+array.note+'","'+array.color+'","'+array.symbol+'","'+array.map_overlay_id+'")')
-                                div.setAttribute('class' ,  'd-flex w-100 justify-content-between')
-                                div.innerHTML = '<h5 class="mb-1">'+name+'</h5>'
-                                div.innerHTML += '<small><i onclick="renderOverlay('+array.overlay_id+')" style="color:'+color+'" class="'+symbol+' customSym" ></small>'
-                                a.appendChild(div)
-                                a.innerHTML   += '<p class="mb-1">'+note+'</p>'
-                                a.innerHTML   += '<small>And some small print.</small>'
-                                sideOverlays.appendChild(a)
-                            } else {
-                                sideOverlays.innerHTML = null
-                            }
 
-                        })
-                    }}
-                
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) { 
+                var data = JSON.parse(xhr.responseText);
+                $( searchField).on('input', function() { 
+
+                    value = searchField.value
+                    sideOverlays.innerHTML = null
+                    var searchTerm = new RegExp(value);
+                    
+                    data.forEach(array => {
+                        found = array.name.match(searchTerm);
+                        if(found && searchTerm != '/(?:)/'){        
+                            name = array.name;
+                            color = array.color
+                            symbol = array.symbol
+                            note = array.note
+                            //FILLING RIGHT SIDE OVERLAYS
+                            a = document.createElement('a')
+                            a.id = "sideOver"+array.overlay_id
+                            div = document.createElement('div')
+                            a.setAttribute('class' , 'list-group-item list-group-item-action ')
+                            a.setAttribute('aria-current', 'true')
+                            a.setAttribute('onclick', 'sideOverClicked(sideOver'+array.overlay_id+',"'+array.name+'","'+array.image+'","'+array.note+'","'+array.color+'","'+array.symbol+'","'+array.map_overlay_id+'")')
+                            div.setAttribute('class' ,  'd-flex w-100 justify-content-between')
+                            div.innerHTML = '<h5 class="mb-1">'+name+'</h5>'
+                            div.innerHTML += '<small><i onclick="renderOverlay('+array.overlay_id+')" style="color:'+color+'" class="'+symbol+' customSym" ></small>'
+                            a.appendChild(div)
+                            a.innerHTML   += '<p class="mb-1">'+note+'</p>'
+                            a.innerHTML   += '<small>And some small print.</small>'
+                            sideOverlays.appendChild(a)
+                        } else {
+                        sideOverlays.innerHTML = null
+                        }
             
-                xhr.open("get", 'api/retrive/'+sessionStorage.getItem('currentMap'), true);
-                xhr.send()        
+                    })
+            
+            
+            
+            });
+            }}
         
-        });
-;
+        xhr.open("get", 'api/retrive/'+sessionStorage.getItem('currentMap'), true);
+        xhr.send()
+        
+        
 }
 
 function renderOverlay(id){
