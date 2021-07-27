@@ -93,6 +93,7 @@ function draw() {
     var xhr = new XMLHttpRequest();
     var currentMap = sessionStorage.getItem('currentMap')
     sideOverlays = document.getElementById('sideOverlays')
+    sideOverlays.innerHTML = null
     xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 var data = JSON.parse(xhr.responseText);
@@ -127,11 +128,12 @@ function draw() {
                             span.setAttribute('onclick', "renderOverlay("+data[elm].overlay_id+")")
                             console.log(div + ' ' + pointPosition )
                             //FILLING RIGHT SIDE OVERLAYS
+                           
                             a = document.createElement('a')
+                            a.id = "sideOver"+elm
                             div = document.createElement('div')
                             a.setAttribute('class' , 'list-group-item list-group-item-action ')
                             a.setAttribute('aria-current', 'true')
-
                             div.setAttribute('class' ,  'd-flex w-100 justify-content-between')
                             div.innerHTML = '<h5 class="mb-1">'+data[elm].name+'</h5>'
                             div.innerHTML += '<small><i style="color:'+data[elm].color+'" class="'+data[elm].symbol+'  customSym"></small>'
@@ -158,6 +160,54 @@ function draw() {
     xhr.setRequestHeader('Accept', 'application/json'); 
     xhr.send();
 
+}
+
+
+function seekAndDestroy() {
+        searchField = document.getElementById('search')
+        var xhr = new XMLHttpRequest();
+        sideOverlays = document.getElementById('sideOverlays')
+        $( searchField).on('input', function() { 
+                value = searchField.value
+                sideOverlays.innerHTML = null
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE) { 
+                        var data = JSON.parse(xhr.responseText);
+                        var searchTerm = new RegExp(value);
+                        data.forEach(array => {
+                            found = array.name.match(searchTerm);
+                            if(found && searchTerm != '/(?:)/'){
+                                
+                                name = array.name;
+                                color = array.color
+                                symbol = array.symbol
+                                note = array.note
+                                //FILLING RIGHT SIDE OVERLAYS
+                                a = document.createElement('a')
+                                
+                                div = document.createElement('div')
+                                a.setAttribute('class' , 'list-group-item list-group-item-action ')
+                                a.setAttribute('aria-current', 'true')
+                                div.setAttribute('class' ,  'd-flex w-100 justify-content-between')
+                                div.innerHTML = '<h5 class="mb-1">'+name+'</h5>'
+                                div.innerHTML += '<small><i style="color:'+color+'" class="'+symbol+'  customSym"></small>'
+                                a.appendChild(div)
+                                a.innerHTML   += '<p class="mb-1">'+note+'</p>'
+                                a.innerHTML   += '<small>And some small print.</small>'
+                                sideOverlays.appendChild(a)
+                            } else {
+                                sideOverlays.innerHTML = null
+                            }
+
+                        })
+                    }}
+                
+            
+                xhr.open("get", 'api/retrive/'+sessionStorage.getItem('currentMap'), true);
+                xhr.send()        
+        
+        });
+;
 }
 
 function renderOverlay(id){
