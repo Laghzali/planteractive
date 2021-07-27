@@ -207,14 +207,13 @@ function seekAndDestroy() {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
                 var data = JSON.parse(xhr.responseText);
+                sideOverlays.innerHTML = null
                 $( searchField).on('input', function() { 
                     value = searchField.value
-                    sideOverlays.innerHTML = null
+                   
                     var searchTerm = new RegExp(value);
                     data.forEach(array => {
-                        console.log(array.name)
                         found = array.name.match(searchTerm);
-                        console.log(found)
                         if(found && searchTerm != '/(?:)/'){        
                             name = array.name;
                             color = array.color
