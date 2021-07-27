@@ -53,6 +53,7 @@
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == XMLHttpRequest.DONE) { 
+                    clicked = false
                     draw();
                     
                 }}
@@ -82,7 +83,7 @@
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
-                clicked = false
+
                 draw();
                 
             }}
