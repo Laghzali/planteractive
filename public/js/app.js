@@ -200,7 +200,7 @@ function draw() {
 
 
 function seekAndDestroy() {
-        sideOverlays.innerHTML = null
+
         searchField = document.getElementById('search')
         var xhr = new XMLHttpRequest();
         sideOverlays = document.getElementById('sideOverlays')
@@ -209,7 +209,7 @@ function seekAndDestroy() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
                
                 $( searchField).on('input', function() { 
-                   
+                    sideOverlays.innerHTML = null
                     var data = JSON.parse(xhr.responseText);
                     value = searchField.value
                     var searchTerm = new RegExp(value);
