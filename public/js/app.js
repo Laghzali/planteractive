@@ -38,8 +38,8 @@
             name   =   sessionStorage.getItem('name')
             image  =   sessionStorage.getItem('image')
             note   =   sessionStorage.getItem('note')
-            color  =   sessionStorage.getItem('color')
-            symbol =   sessionStorage.getItem('symbol')
+            color  =   sessionStorage.getItem('over_color')
+            symbol =   sessionStorage.getItem('over_symbol')
             map_id =   sessionStorage.getItem('map_id')
             form = new FormData()
             form.append('note', note)
@@ -56,7 +56,7 @@
                     draw();
                     
                 }}
-            xhr.open("POST", 'api/save', true);
+            xhr.open("POST", 'api/save/existing', true);
     
             xhr.send(form);
         } else {
@@ -162,7 +162,7 @@ function draw() {
                             div = document.createElement('div')
                             a.setAttribute('class' , 'list-group-item list-group-item-action ')
                             a.setAttribute('aria-current', 'true')
-                            a.setAttribute('onclick', 'sideOverClicked('+a.id+',"'+data[elm].name+'","'+data[elm].image+'","'+data[elm].note+'","'+data[elm].symbol+'","'+data[elm].color+'","'+data[elm].map_overlay_id+'")')
+                            a.setAttribute('onclick', 'sideOverClicked('+a.id+',"'+data[elm].name+'","'+data[elm].image+'","'+data[elm].note+'","'+data[elm].color+'","'+data[elm].symbol+'","'+data[elm].map_overlay_id+'")')
                             div.setAttribute('class' ,  'd-flex w-100 justify-content-between')
                             div.innerHTML = '<h5 class="mb-1">'+data[elm].name+'</h5>'
                             div.innerHTML += '<small><i style="color:'+data[elm].color+'" onclick="renderOverlay('+data[elm].overlay_id+')" class="'+data[elm].symbol+'  customSym"></small>'
@@ -338,8 +338,8 @@ function sideOverClicked(id, name , image , note , color , symbol , map_id){
     sessionStorage.setItem('name' , name)
     sessionStorage.setItem('image' , image)
     sessionStorage.setItem('note' , note)
-    sessionStorage.setItem('color' , color)
-    sessionStorage.setItem('symbol' , symbol)
+    sessionStorage.setItem('over_color' , color)
+    sessionStorage.setItem('over_symbol' , symbol)
     sessionStorage.setItem('map_id' , map_id)
     //sessionStorage.setItem('clicked' , true)
     clicked = true

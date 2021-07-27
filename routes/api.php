@@ -14,7 +14,7 @@ use App\Http\Controllers\main;
 |
 */
 
-
+Route::post('/save/existing' , [main::class, 'saveExistingOverlay']);
 Route::post('/save' , [main::class, 'saveOverlay']);
 Route::post('/new/map' , [main::class, 'newMap2jpg']);
 Route::get('/retrive/maps' , [main::class, 'retriveMaps']);

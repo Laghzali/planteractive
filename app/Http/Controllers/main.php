@@ -63,6 +63,30 @@ class main extends Controller
         ], 201);
     } else { return "err";}
     }
+    public function saveExistingOverlay(Request $request) {
+
+      $overlay = new overlays;
+
+          $overlay->element = "overlay";
+          $overlay->x = $request->x;
+          $overlay->image = $request->image;
+          $overlay->y = $request->y;
+          $overlay->symbol = $request->symbol;
+          $overlay->color = $request->color;
+          $overlay->name = $request->name;
+          $overlay->note = $request->note;
+          $overlay->map_id = $request->map_id;
+
+         if(  $overlay->save() ){
+  
+            return response()->json([
+                "message" => "Overlay added"
+            ], 201);
+          }
+  }
+
+
+
     public function retriveOverlay(Request $request) {
     //$overlays = overlays::get()->toJson(JSON_PRETTY_PRINT);
     $overlays = maps::selectRaw('overlays.id as overlay_id , maps.id as map_overlay_id, overlays.name , overlays.x , overlays.y , overlays.symbol , overlays.image , overlays.note , overlays.color')
