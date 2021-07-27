@@ -31,6 +31,7 @@
         point.x = element_position.x
         point.y = element_position.y
 
+        
     if (event.shift) {
         if(clicked === true) {
             console.log('here')
