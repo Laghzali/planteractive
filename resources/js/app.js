@@ -1,5 +1,7 @@
 
-
+    var clicked = false;
+    const loading = new Event('loading');
+    const notloading = new Event('notloading')
     var viewer = OpenSeadragon({
         visibilityRatio: 1.0,
         constrainDuringPan: true,
@@ -20,7 +22,6 @@
     });
 
 
-
     var  point = new OpenSeadragon.Point()
 
 	var clickHandler = (event) => {
@@ -32,13 +33,43 @@
         point.x = element_position.x
         point.y = element_position.y
 
+        
     if (event.shift) {
+        if(clicked === true) {
+        
+            name   =   sessionStorage.getItem('name')
+            image  =   sessionStorage.getItem('image')
+            note   =   sessionStorage.getItem('note')
+            color  =   sessionStorage.getItem('over_color')
+            symbol =   sessionStorage.getItem('over_symbol')
+            map_id =   sessionStorage.getItem('map_id')
+            form = new FormData()
+            form.append('note', note)
+            form.append('name', name)
+            form.append('symbol', symbol)
+            form.append('color', color)
+            form.append('x', point.x)
+            form.append('y', point.y)
+            form.append('map_id', map_id)
+            form.append('image', image);
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == XMLHttpRequest.DONE) { 
+                    clicked = false
+                    draw();
+                    
+                }}
+            xhr.open("POST", 'api/save/existing', true);
+    
+            xhr.send(form);
+        } else {
         $('#dataSend').modal('show');
-        //viewer.addOverlay(element, point, OpenSeadragon.Placement.CENTER);
+        }
     }
 };
 
     function sendForm(sym, color) {
+        document.dispatchEvent(loading);
         var image = document.getElementById('image');
         var file = image.files[0];
         note =  document.getElementById('note').value
@@ -55,7 +86,9 @@
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
-                drawLatest();
+                document.dispatchEvent(notloading);
+                draw();
+                
             }}
         xhr.open("POST", 'api/save', true);
 
@@ -63,8 +96,8 @@
         
     }
 
-
     function uploadPdf() {
+        document.dispatchEvent(loading);
         var image = document.getElementById('map_pdf');
         var file = image.files[0];
         name =  document.getElementById('map_name').value 
@@ -74,6 +107,7 @@
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
+                document.dispatchEvent(notloading);
                 drawLatest()
                 
             }}
@@ -82,102 +116,76 @@
         
     }
 
-
 new OpenSeadragon.MouseTracker({
     element : viewer.canvas,
 
     clickHandler : clickHandler,
 })
 
-function renderOverlay(id){
-    $('#parentModal'+id).modal('show');
-    console.log(id)
-}
-
-function drawLatest(){
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-            if (xhr.readyState == XMLHttpRequest.DONE) {
-                var data = JSON.parse(xhr.responseText);
-                        var  pointPosition =  new OpenSeadragon.Point()
-                        div = document.createElement('div')
-
-                        div.id = data.id
-                        document.body.appendChild(div)
-                        span = document.createElement('span')
-                        span.setAttribute('style', 'color:'+data.color)
-                        span.innerHTML= '<i class="'+data.symbol+' pulsate customSym" ></i>'
-                        span.setAttribute('id','renderer')
-                        div.appendChild(span)
-                        htmlx = "<div id='parentModal"+data.id+"' class='modal fade' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>"
-                        htmlx += "  <div class='modal-dialog'>"
-                        htmlx += "   <div class='modal-content'>"
-                        htmlx += "     <div class='modal-header'>"
-                        htmlx += "       <h4 id='nameField' class='modal-title nameField'>"+data.name+"</h4> "
-                        htmlx += "       <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>"
-                        htmlx += "      </div>"
-                        htmlx += "     <div  class='modal-body'><img src="+data.image+"  style='max-width: 100%; max-height: 100%' id='imageField' class='img-responsive'> <p class='col-md-12' id='noteField'>"+data.note+ "</p> </div>"
-                        htmlx += "     <div class='modal-footer'>"
-                        htmlx += "  <button type='button' class='btn btn-danger' onclick='deleteOverlay("+data.id+")' data-bs-dismiss='modal'>Delete</button>"
-                        htmlx += "   </div></div> </div></div>"
-                        pointPosition.x = data.x 
-                        pointPosition.y = data.y
-                        document.body.insertAdjacentHTML('beforeend', htmlx)
-                        span.setAttribute('onclick', "renderOverlay("+data.id+")")
-                        viewer.addOverlay(div, pointPosition, OpenSeadragon.Placement.CENTER)
-                    
-
-            }
-        }
-
-    xhr.open("get", 'api/retrive/last', true); 
-    xhr.setRequestHeader('Accept', 'application/json'); 
-    xhr.send();
-
-}
-
 
 function draw() {
     viewer.clearOverlays()
     var xhr = new XMLHttpRequest();
     var currentMap = sessionStorage.getItem('currentMap')
+    sideOverlays = document.getElementById('sideOverlays')
+    sideOverlays.innerHTML = null
     xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 var data = JSON.parse(xhr.responseText);
-                       
                     for (elm in data) {
 
-                    console.log('drawing .. map_over_id : ' + data[elm].map_overlay_id)
-                    if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
-                        var  pointPosition =  new OpenSeadragon.Point()
-                        div = document.createElement('div')
-                        div.id = data[elm].id
-                        document.body.appendChild(div)
-                        span = document.createElement('span')
-                        span.setAttribute('style', 'color:'+data[elm].color)
-                        span.innerHTML= '<i class="'+data[elm].symbol+' pulsate customSym" ></i>'
-                        span.setAttribute('id','renderer'+elm)
-                        div.appendChild(span)
-                        htmlx = "<div id='parentModal' class='modal fade' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>"
-                        htmlx += "  <div class='modal-dialog'>"
-                        htmlx += "   <div class='modal-content'>"
-                        htmlx += "     <div class='modal-header'>"
-                        htmlx += "       <h4 id='nameField' class='modal-title nameField'>"+data[elm].name+"</h4> "
-                        htmlx += "       <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>"
-                        htmlx += "      </div>"
-                        htmlx += "     <div  class='modal-body'><img src="+data[elm].image+"  style='max-width: 100%; max-height: 100%' id='imageField' class='img-responsive'> <p class='col-md-12' id='noteField'>"+data[elm].note+ "</p> </div>"
-                        htmlx += "     <div class='modal-footer'>"
-                        htmlx += "  <button type='button' class='btn btn-danger' onclick='deleteOverlay("+data[elm].id+")' data-bs-dismiss='modal'>Delete</button>"
-                        htmlx += "   </div></div> </div></div>"
-                        pointPosition.x = data[elm].x 
-                        pointPosition.y = data[elm].y
-                        document.body.insertAdjacentHTML('beforeend', htmlx)
-                        span.setAttribute('onclick', "renderOverlay("+elm+")")
-                        viewer.addOverlay(div, pointPosition, OpenSeadragon.Placement.CENTER)
-                        console.log(div + ' ' + pointPosition )
-                    }
-                    }
+                        if(sessionStorage.getItem('currentMap') === data[elm].map_overlay_id) {
+                            var  pointPosition =  new OpenSeadragon.Point()
+                            div = document.createElement('div')
+                            
+                            div.id = data[elm].overlay_id
+                            document.body.appendChild(div)
+                            span = document.createElement('span')
+                            span.setAttribute('style', 'z-index:12;color:'+data[elm].color+'')
+                            span.innerHTML= '<i class="'+data[elm].symbol+' customSym"><i class=" dot pulsate"></i></i>'
+                            span.setAttribute('id','renderer'+data[elm].overlay_id)
+                            div.appendChild(span)
+                            htmlx = "<div id='parentModal" + data[elm].overlay_id + "' class='modal fade' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>"
+                            htmlx += "  <div class='modal-dialog'>"
+                            htmlx += "   <div class='modal-content'>"
+                            htmlx += "     <div class='modal-header'>"
+                            htmlx += "      <h4 id='nameField' class='modal-title nameField'>"+data[elm].name+"</h4> "
+                            htmlx += "       <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>"
+                            htmlx += "      </div>"
+                            htmlx += "     <div  class='modal-body'><img src="+data[elm].image+"  style='max-width: 100%; max-height: 100%' id='imageField' class='img-responsive'> <p class='col-md-12' id='noteField'>"+data[elm].note+ "</p> </div>"
+                            htmlx += "     <div class='modal-footer'>"
+                            htmlx += "  <button type='button' class='btn btn-danger' onclick='deleteOverlay("+data[elm].overlay_id+")' data-bs-dismiss='modal'>Delete</button>"
+                            htmlx += "   </div></div> </div></div>"
+                            pointPosition.x = data[elm].x 
+                            pointPosition.y = data[elm].y
+                            document.body.insertAdjacentHTML('beforeend', htmlx)
+                            viewer.addOverlay(div, pointPosition, OpenSeadragon.Placement.CENTER)
+                            span.setAttribute('onclick', "renderOverlay("+data[elm].overlay_id+")")
 
+                            //FILLING RIGHT SIDE OVERLAYS
+                           
+                            a = document.createElement('a')
+                            a.id = "sideOver"+elm
+                            div = document.createElement('div')
+                            a.setAttribute('class' , 'list-group-item list-group-item-action ')
+                            a.setAttribute('aria-current', 'true')
+                            a.setAttribute('onclick', 'sideOverClicked('+a.id+',"'+data[elm].name+'","'+data[elm].image+'","'+data[elm].note+'","'+data[elm].color+'","'+data[elm].symbol+'","'+data[elm].map_overlay_id+'")')
+                            div.setAttribute('class' ,  'd-flex w-100 justify-content-between')
+                            div.innerHTML = '<h5 class="mb-1">'+data[elm].name+'</h5>'
+                            div.innerHTML += '<small><i style="color:'+data[elm].color+'" onclick="renderOverlay('+data[elm].overlay_id+')" class="'+data[elm].symbol+'  customSym"></small>'
+                            a.appendChild(div)
+                            a.innerHTML   += '<p class="mb-1">'+data[elm].note+'</p>'
+                            a.innerHTML   += '<small>And some small print.</small>'
+                            sideOverlays.appendChild(a)
+                            
+
+                            
+
+                            
+                        }
+
+                    }
+                puls()
 
             }
 
@@ -190,15 +198,69 @@ function draw() {
 
 }
 
+
+function seekAndDestroy() {
+
+        searchField = document.getElementById('search')
+        var xhr = new XMLHttpRequest();
+        sideOverlays = document.getElementById('sideOverlays')
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) { 
+               
+                $( searchField).on('input', function() { 
+                    sideOverlays.innerHTML = null
+                    var data = JSON.parse(xhr.responseText);
+                    value = searchField.value
+                    var searchTerm = new RegExp(value);
+                    data.forEach(array => {
+                        found = array.name.match(searchTerm);
+                        if(found && searchTerm != '/(?:)/'){        
+                            name = array.name;
+                            color = array.color
+                            symbol = array.symbol
+                            note = array.note
+                            //FILLING RIGHT SIDE OVERLAYS
+                            a = document.createElement('a')
+                            a.id = "sideOver"+array.overlay_id
+                            div = document.createElement('div')
+                            a.setAttribute('class' , 'list-group-item list-group-item-action ')
+                            a.setAttribute('aria-current', 'true')
+                            a.setAttribute('onclick', 'sideOverClicked(sideOver'+array.overlay_id+',"'+array.name+'","'+array.image+'","'+array.note+'","'+array.color+'","'+array.symbol+'","'+array.map_overlay_id+'")')
+                            div.setAttribute('class' ,  'd-flex w-100 justify-content-between')
+                            div.innerHTML = '<h5 class="mb-1">'+name+'</h5>'
+                            div.innerHTML += '<small><i onclick="renderOverlay('+array.overlay_id+')" style="color:'+color+'" class="'+symbol+' customSym" ></small>'
+                            a.appendChild(div)
+                            a.innerHTML   += '<p class="mb-1">'+note+'</p>'
+                            a.innerHTML   += '<small>And some small print.</small>'
+                            sideOverlays.appendChild(a)
+                        } 
+                    })
+            
+            
+            
+            });
+            }}
+        
+        xhr.open("get", 'api/retrive/'+sessionStorage.getItem('currentMap'), true);
+        xhr.send()
+        
+        
+}
+
+function renderOverlay(id){
+    $('#parentModal'+id).modal('show');
+
+}
+
 function deleteOverlay(id) {
+    removeElem = document.getElementById(id)
     var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
-                removeElem = document.getElementById(id)
-                // removeElem.style="display:none"
+                removeElem.style="display:none"
                 removeElem.remove()
-                
-                
+
             }}
         
         xhr.open("DELETE", 'api/delete/'+id, true);
@@ -224,6 +286,20 @@ function puls() {
         }
 
 jQuery( document ).ready(function() {
+        
+         document.addEventListener('loading', function (e) {
+            loader = document.createElement('div')
+            loader.classList.add('spinner')
+            loader.id = "timewaster"
+            img = document.createElement('img')
+            img.src = "loader.gif"
+            img.width=150;
+            img.height=150;
+            loader.appendChild(img)
+            document.body.appendChild(loader)  
+        }, false);
+        
+        document.addEventListener('notloading', function (e) { document.getElementById('timewaster').remove() }, false);
 
         function populateMaps() {
             var xhr = new XMLHttpRequest();
@@ -271,10 +347,30 @@ jQuery( document ).ready(function() {
                     sessionStorage.setItem('currentMap', mapId);
                     draw()
                     loader.remove()
-                    setTimeout(puls, 3000)
+                    
             });
          };
         }
 
 populateMaps()
 });
+
+function sideOverClicked(id, name , image , note , color , symbol , map_id){
+
+    sessionStorage.setItem('name' , name)
+    sessionStorage.setItem('image' , image)
+    sessionStorage.setItem('note' , note)
+    sessionStorage.setItem('over_color' , color)
+    sessionStorage.setItem('over_symbol' , symbol)
+    sessionStorage.setItem('map_id' , map_id)
+    //sessionStorage.setItem('clicked' , true)
+    if(clicked === false) {
+        clicked = true 
+        $(id).addClass("active");
+    } else {
+        $(id+'.active').removeClass("active");
+        clicked = false
+    }
+
+   
+}
