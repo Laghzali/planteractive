@@ -68,7 +68,7 @@
     }
 };
 
-    function sendForm(sym, color) {
+    sendForm =  function (sym, color) {
         document.dispatchEvent(loading);
         var image = document.getElementById('image');
         var file = image.files[0];
@@ -96,7 +96,7 @@
         
     }
 
-    function uploadPdf() {
+    uploadPdf = function () {
         document.dispatchEvent(loading);
         var image = document.getElementById('map_pdf');
         var file = image.files[0];
@@ -123,7 +123,7 @@ new OpenSeadragon.MouseTracker({
 })
 
 
-function draw() {
+draw = function () {
     viewer.clearOverlays()
     var xhr = new XMLHttpRequest();
     var currentMap = sessionStorage.getItem('currentMap')
@@ -199,7 +199,7 @@ function draw() {
 }
 
 
-function seekAndDestroy() {
+seekAndDestroy = function () {
 
         searchField = document.getElementById('search')
         var xhr = new XMLHttpRequest();
@@ -248,12 +248,12 @@ function seekAndDestroy() {
         
 }
 
-function renderOverlay(id){
+renderOverlay = function (id){
     $('#parentModal'+id).modal('show');
 
 }
 
-function deleteOverlay(id) {
+deleteOverlay = function (id) {
     removeElem = document.getElementById(id)
     var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
@@ -270,7 +270,7 @@ function deleteOverlay(id) {
 
 
 
-function puls() {
+puls = function () {
         
         $(".pulsate").jPulse({
 			color: "#FF1414",
@@ -301,7 +301,7 @@ jQuery( document ).ready(function() {
         
         document.addEventListener('notloading', function (e) { document.getElementById('timewaster').remove() }, false);
 
-        function populateMaps() {
+        populateMaps = function () {
             var xhr = new XMLHttpRequest();
             ul = document.getElementById('mapsList')
             xhr.onreadystatechange = function() {
@@ -355,7 +355,7 @@ jQuery( document ).ready(function() {
 populateMaps()
 });
 
-function sideOverClicked(id, name , image , note , color , symbol , map_id){
+window.sideOverClicked = function (id, name , image , note , color , symbol , map_id){
 
     sessionStorage.setItem('name' , name)
     sessionStorage.setItem('image' , image)
