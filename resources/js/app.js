@@ -230,8 +230,9 @@ seekAndDestroy = function () {
                     var data = JSON.parse(xhr.responseText);
                     value = searchField.value
                     var searchTerm = new RegExp(value);
+
                     data.forEach(array => {
-                        found = array.name.match(searchTerm);
+                        found = array.name.match(searchTerm.ignoreCase);
                         if(found && searchTerm != '/(?:)/'){        
                             name = array.name;
                             color = array.color

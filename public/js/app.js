@@ -213,7 +213,7 @@ seekAndDestroy = function seekAndDestroy() {
         value = searchField.value;
         var searchTerm = new RegExp(value);
         data.forEach(function (array) {
-          found = array.name.match(searchTerm);
+          found = array.name.match(searchTerm.ignoreCase);
 
           if (found && searchTerm != '/(?:)/') {
             name = array.name;
