@@ -13,8 +13,7 @@
             <p class="col-md-6 text-muted text-center justify-content-start">© OrderAid 2021</p>    
         </div>
         <div id="sideToggle" class="right-0">
-          <i class="arrow right" id="arrow" 
-            onclick='$("#sidebar").toggleClass("collapsed");$("#arrow").toggleClass("left right");$("#openseadragon").toggleClass("col-md-12 col-md-9");'></i>
+          <i class="arrow right" id="arrow"></i>
         </div> 
           <!--COPY RIGHT-->
       </div>
@@ -24,7 +23,7 @@
                   <img class="mt-10 shadow rounded" width=200 height=160 src='logo.png'>
                 </div>
                 <div class="input-group">
-                   <input type="search" id="search" onclick="seekAndDestroy()" class="form-control" placeholder="What are you looking for?" />
+                   <input type="search" id="searchInput" class="form-control" placeholder="What are you looking for?" />
                         <span id="clearSearch" class="input-group-btn">
                           <button onclick="draw()" class="btn btn-default" type="submit">
                               <i class="fas fa-sync"></i>
@@ -50,7 +49,7 @@
               <a href="#" style="width:fit-content;" class="d-flex align-items-center text-white text-decoration-none " id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                <img id="profile" src="https://img.icons8.com/ios-filled/50/000000/job.png" alt="" width="40" height="40" class="rounded-circle me-2"> </a>
                <ul class="dropdown-menu dropdown-menu-dark text-small shadow mb-2" aria-labelledby="dropdownUser1">
-                    <li><a onclick='$("#uploadPdf").modal("show");' class="dropdown-item" href="#">New Map.</a></li>
+                    <li><a id='showUploadForm' class="dropdown-item" href="#">New Map.</a></li>
                     <li><a class="dropdown-item" href="#">Embed</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">Sign out</a></li>

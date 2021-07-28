@@ -2,6 +2,7 @@
     var clicked = false;
     const loading = new Event('loading');
     const notloading = new Event('notloading')
+
     var viewer = OpenSeadragon({
         visibilityRatio: 1.0,
         constrainDuringPan: true,
@@ -59,7 +60,7 @@
                     draw();
                     
                 }}
-            xhr.open("POST", 'api/save/existing', true);
+            xhr.open("POST", 'http://103.164.54.206/api/save/existing', true);
     
             xhr.send(form);
         } else {
@@ -90,7 +91,7 @@
                 draw();
                 
             }}
-        xhr.open("POST", 'api/save', true);
+        xhr.open("POST", 'http://103.164.54.206/api/save', true);
 
         xhr.send(form);
         
@@ -107,11 +108,13 @@
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
+                var data = JSON.parse(xhr.responseText);
+                loadMap(data.path, data.id)
                 document.dispatchEvent(notloading);
-                draw()
+                
                 
             }}
-        xhr.open("POST", 'api/new/map', true);
+        xhr.open("POST", 'http://103.164.54.206/api/new/map', true);
         xhr.send(form);
         
     }
@@ -192,7 +195,7 @@ window.draw = function () {
         }
 
 
-    xhr.open("get", 'api/retrive/'+ currentMap , true); 
+    xhr.open("get", 'http://103.164.54.206/api/retrive/'+ currentMap , true); 
     xhr.setRequestHeader('Accept', 'application/json'); 
     xhr.send();
 
@@ -242,7 +245,7 @@ seekAndDestroy = function () {
             });
             }}
         
-        xhr.open("get", 'api/retrive/'+sessionStorage.getItem('currentMap'), true);
+        xhr.open("get", 'http://103.164.54.206/api/retrive/'+sessionStorage.getItem('currentMap'), true);
         xhr.send()
         
         
@@ -263,7 +266,7 @@ deleteOverlay = function (id) {
 
             }}
         
-        xhr.open("DELETE", 'api/delete/'+id, true);
+        xhr.open("DELETE", 'http://103.164.54.206/api/delete/'+id, true);
         xhr.send();
 }
 
@@ -286,8 +289,7 @@ puls = function () {
         }
 
 jQuery( document ).ready(function() {
-        
-         document.addEventListener('loading', function (e) {
+        document.addEventListener('loading', function (e) {
             loader = document.createElement('div')
             loader.classList.add('spinner')
             loader.id = "timewaster"
@@ -299,7 +301,10 @@ jQuery( document ).ready(function() {
             document.body.appendChild(loader)  
         }, false);
         
-        document.addEventListener('notloading', function (e) { document.getElementById('timewaster').remove() }, false);
+        document.addEventListener('notloading',
+                function (e) { 
+                    document.getElementById('timewaster').remove() 
+                }, false);
 
         populateMaps = function () {
             var xhr = new XMLHttpRequest();
@@ -317,7 +322,7 @@ jQuery( document ).ready(function() {
                         })
                     }
                 }
-            xhr.open("get", 'api/retrive/maps', true); 
+            xhr.open("get", 'http://103.164.54.206/api/retrive/maps', true); 
             xhr.setRequestHeader('Accept', 'application/json'); 
             xhr.send();
 
@@ -340,7 +345,7 @@ jQuery( document ).ready(function() {
             viewer.close()
             viewer.open({
                 type : 'image',
-                url : imgUrl,
+                url : 'http://103.164.54.206/'+imgUrl,
             });
 
             viewer.world.addOnceHandler('add-item', function (){
@@ -352,7 +357,19 @@ jQuery( document ).ready(function() {
          };
         }
 
+    const sendFormButton = document.getElementById('sendFormButton')
+    const uploadPdfButton = document.getElementById('uploadPdfButton')
+    const searchInput = document.getElementById('searchInput')
+    const showUploadForm = document.getElementById('showUploadForm')
+    const arrowFunction = document.getElementById('arrow')
+    arrowFunction.addEventListener('click', () => {$("#sidebar").toggleClass("collapsed");$("#arrow").toggleClass("left right");$("#openseadragon").toggleClass("col-md-12 col-md-9")})
+    showUploadForm.addEventListener('click', () => {$("#uploadPdf").modal("show")}) 
+    searchInput.addEventListener('click', () => seekAndDestroy())
+    uploadPdfButton.addEventListener('click', ()=> uploadPdf())
+    sendFormButton.addEventListener('click', () => sendForm(sessionStorage.getItem('sym'),sessionStorage.getItem('color')))
+    
 populateMaps()
+
 });
 
  sideOverClicked = function (id, name , image , note , color , symbol , map_id){
@@ -374,3 +391,5 @@ populateMaps()
 
    
 }
+
+

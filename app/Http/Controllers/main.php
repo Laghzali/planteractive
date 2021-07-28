@@ -28,12 +28,13 @@ class main extends Controller
 	  
       $cmdJPG = 'pdftoppm -jpeg -r 72 '. $pdfInFile . ' ' . $jpgout ;
       $pdf2jpg = system($cmdJPG);
-	  $jpgout = 'storage/uploads/jpg/'.preg_replace('/.pdf/', '', $pdfName).'-1.jpg';
-	   $rotate = system($rotate90);
+	    $jpgout = 'storage/uploads/jpg/'.preg_replace('/.pdf/', '', $pdfName).'-1.jpg';
+	    $rotate = system($rotate90);
       $map->path = $jpgout;
       $map->name = $request->map_name;
       $map->save();
-     return preg_replace('/app\/public/', '', $jpgout);
+      $resp = maps::where('id', $map->id)->get()->toJson(JSON_PRETTY_PRINT);
+      return response($resp, 200);
 
     }
 

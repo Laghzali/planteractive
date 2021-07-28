@@ -29,7 +29,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" data-bs-dismiss="modal" onclick="sendForm(sessionStorage.getItem('sym'),sessionStorage.getItem('color'))" class="btn btn-primary">Add</button>
+        <button type="button" id="sendFormButton" data-bs-dismiss="modal"  class="btn btn-primary">Add</button>
       </div>
     </div>
   </div>
@@ -61,7 +61,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" data-bs-dismiss="modal" onclick="uploadPdf()" class="btn btn-primary">Add</button>
+        <button type="button" data-bs-dismiss="modal" id="uploadPdfButton" class="btn btn-primary">Add</button>
       </div>
     </div>
   </div>
