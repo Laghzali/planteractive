@@ -111,7 +111,7 @@ uploadPdf = function uploadPdf() {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == XMLHttpRequest.DONE) {
       document.dispatchEvent(notloading);
-      drawLatest();
+      draw();
     }
   };
 

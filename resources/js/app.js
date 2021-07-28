@@ -108,7 +108,7 @@
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
                 document.dispatchEvent(notloading);
-                drawLatest()
+                draw()
                 
             }}
         xhr.open("POST", 'api/new/map', true);
