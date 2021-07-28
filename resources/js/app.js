@@ -218,7 +218,7 @@ window.draw = function () {
 
 seekAndDestroy = function () {
 
-        searchField = document.getElementById('search')
+        searchField = document.getElementById('searchInput')
         var xhr = new XMLHttpRequest();
         sideOverlays = document.getElementById('sideOverlays')
 
