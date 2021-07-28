@@ -123,7 +123,7 @@ new OpenSeadragon.MouseTracker({
 })
 
 
-draw = function () {
+window.draw = function () {
     viewer.clearOverlays()
     var xhr = new XMLHttpRequest();
     var currentMap = sessionStorage.getItem('currentMap')
@@ -355,7 +355,7 @@ jQuery( document ).ready(function() {
 populateMaps()
 });
 
-window.sideOverClicked = function (id, name , image , note , color , symbol , map_id){
+ sideOverClicked = function (id, name , image , note , color , symbol , map_id){
 
     sessionStorage.setItem('name' , name)
     sessionStorage.setItem('image' , image)
