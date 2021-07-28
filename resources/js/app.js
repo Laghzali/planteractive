@@ -60,7 +60,7 @@
                     draw();
                     
                 }}
-            xhr.open("POST", 'http://103.164.54.206/api/save/existing', true);
+            xhr.open("POST", 'api/save/existing', true);
     
             xhr.send(form);
         } else {
@@ -91,7 +91,7 @@
                 draw();
                 
             }}
-        xhr.open("POST", 'http://103.164.54.206/api/save', true);
+        xhr.open("POST", 'api/save', true);
 
         xhr.send(form);
         
@@ -109,12 +109,26 @@
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
                 var data = JSON.parse(xhr.responseText);
-                loadMap(data.path, data.id)
-                document.dispatchEvent(notloading);
+                
+                data.forEach(array => {
+                    viewer.close()
+                    viewer.open({
+                        type : 'image',
+                        url : ''+array.path,
+                    });
+                    viewer.world.addOnceHandler('add-item', function (){
+                            sessionStorage.setItem('currentMap', array.id);
+                            draw()
+                            document.dispatchEvent(notloading);
+                            
+                    });
+
+                })
                 
                 
+                populateMaps() 
             }}
-        xhr.open("POST", 'http://103.164.54.206/api/new/map', true);
+        xhr.open("POST", 'api/new/map', true);
         xhr.send(form);
         
     }
@@ -195,7 +209,7 @@ window.draw = function () {
         }
 
 
-    xhr.open("get", 'http://103.164.54.206/api/retrive/'+ currentMap , true); 
+    xhr.open("get", 'api/retrive/'+ currentMap , true); 
     xhr.setRequestHeader('Accept', 'application/json'); 
     xhr.send();
 
@@ -245,7 +259,7 @@ seekAndDestroy = function () {
             });
             }}
         
-        xhr.open("get", 'http://103.164.54.206/api/retrive/'+sessionStorage.getItem('currentMap'), true);
+        xhr.open("get", 'api/retrive/'+sessionStorage.getItem('currentMap'), true);
         xhr.send()
         
         
@@ -266,7 +280,7 @@ deleteOverlay = function (id) {
 
             }}
         
-        xhr.open("DELETE", 'http://103.164.54.206/api/delete/'+id, true);
+        xhr.open("DELETE", 'api/delete/'+id, true);
         xhr.send();
 }
 
@@ -309,6 +323,7 @@ jQuery( document ).ready(function() {
         populateMaps = function () {
             var xhr = new XMLHttpRequest();
             ul = document.getElementById('mapsList')
+            ul.innerHTML = null
             xhr.onreadystatechange = function() {
                     if (xhr.readyState == XMLHttpRequest.DONE) {
                         var data = JSON.parse(xhr.responseText);
@@ -322,39 +337,10 @@ jQuery( document ).ready(function() {
                         })
                     }
                 }
-            xhr.open("get", 'http://103.164.54.206/api/retrive/maps', true); 
+            xhr.open("get", 'api/retrive/maps', true); 
             xhr.setRequestHeader('Accept', 'application/json'); 
             xhr.send();
 
-        }
-
-
-        var loadMap = function(imgUrl, mapId) {
-        return function() { 
-            loader = document.createElement('div')
-            loader.classList.add('spinner')
-            img = document.createElement('img')
-            img.src = "loader.gif"
-            img.width=150;
-            img.height=150;
-            loader.appendChild(img)
-            document.body.appendChild(loader)
-            
-            loaded = false
-            viewer.clearOverlays()
-            viewer.close()
-            viewer.open({
-                type : 'image',
-                url : 'http://103.164.54.206/'+imgUrl,
-            });
-
-            viewer.world.addOnceHandler('add-item', function (){
-                    sessionStorage.setItem('currentMap', mapId);
-                    draw()
-                    loader.remove()
-                    
-            });
-         };
         }
 
     const sendFormButton = document.getElementById('sendFormButton')
@@ -372,7 +358,7 @@ populateMaps()
 
 });
 
- sideOverClicked = function (id, name , image , note , color , symbol , map_id){
+    sideOverClicked = function (id, name , image , note , color , symbol , map_id){
 
     sessionStorage.setItem('name' , name)
     sessionStorage.setItem('image' , image)
@@ -392,4 +378,30 @@ populateMaps()
    
 }
 
+var loadMap = function(imgUrl, mapId) {
+    return function() { 
+        loader = document.createElement('div')
+        loader.classList.add('spinner')
+        img = document.createElement('img')
+        img.src = "loader.gif"
+        img.width=150;
+        img.height=150;
+        loader.appendChild(img)
+        document.body.appendChild(loader)
+        
+        loaded = false
+        viewer.clearOverlays()
+        viewer.close()
+        viewer.open({
+            type : 'image',
+            url : imgUrl,
+        });
 
+        viewer.world.addOnceHandler('add-item', function (){
+                sessionStorage.setItem('currentMap', mapId);
+                draw()
+                loader.remove()
+                
+        });
+     };
+    }
