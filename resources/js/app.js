@@ -172,6 +172,7 @@ window.draw = function () {
                             htmlx += "     <div  class='modal-body'><img src="+data[elm].image+"  id='imageField' > <p class='col-md-12' id='noteField'>"+data[elm].note+ "</p> </div>"
                             htmlx += "     <div class='modal-footer'>"
                             htmlx += "  <button type='button' class='btn btn-danger' onclick='deleteOverlay("+data[elm].overlay_id+")' data-bs-dismiss='modal'>Delete</button>"
+                            htmlx += "  <button type='button' class='btn btn-info' onclick='' data-bs-dismiss='modal'>Edit</button>"
                             htmlx += "   </div></div> </div></div>"
                             pointPosition.x = data[elm].x 
                             pointPosition.y = data[elm].y
