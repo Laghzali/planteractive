@@ -169,7 +169,7 @@ window.draw = function () {
                             htmlx += "      <h4 id='nameField' class='modal-title nameField'>"+data[elm].name+"</h4> "
                             htmlx += "       <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>"
                             htmlx += "      </div>"
-                            htmlx += "     <div  class='modal-body'><img src="+data[elm].image+"  style='max-width: 100%; max-height: 100%' id='imageField' class='img-responsive'> <p class='col-md-12' id='noteField'>"+data[elm].note+ "</p> </div>"
+                            htmlx += "     <div  class='modal-body'><img src="+data[elm].image+"  id='imageField' > <p class='col-md-12' id='noteField'>"+data[elm].note+ "</p> </div>"
                             htmlx += "     <div class='modal-footer'>"
                             htmlx += "  <button type='button' class='btn btn-danger' onclick='deleteOverlay("+data[elm].overlay_id+")' data-bs-dismiss='modal'>Delete</button>"
                             htmlx += "   </div></div> </div></div>"
@@ -192,7 +192,7 @@ window.draw = function () {
                             div.innerHTML += '<small><i style="color:'+data[elm].color+'" onclick="renderOverlay('+data[elm].overlay_id+')" class="'+data[elm].symbol+'  customSym"></small>'
                             a.appendChild(div)
                             a.innerHTML   += '<p class="mb-1">'+data[elm].note+'</p>'
-                            a.innerHTML   += '<small>And some small print.</small>'
+
                             sideOverlays.appendChild(a)
                             
 
@@ -250,7 +250,7 @@ seekAndDestroy = function () {
                             div.innerHTML += '<small><i onclick="renderOverlay('+array.overlay_id+')" style="color:'+color+'" class="'+symbol+' customSym" ></small>'
                             a.appendChild(div)
                             a.innerHTML   += '<p class="mb-1">'+note+'</p>'
-                            a.innerHTML   += '<small>And some small print.</small>'
+
                             sideOverlays.appendChild(a)
                         } 
                     })
@@ -273,7 +273,7 @@ seekAndDestroy = function () {
                                 div.innerHTML += '<small><i onclick="renderOverlay('+array.overlay_id+')" style="color:'+color+'" class="'+symbol+' customSym" ></small>'
                                 a.appendChild(div)
                                 a.innerHTML   += '<p class="mb-1">'+note+'</p>'
-                                a.innerHTML   += '<small>And some small print.</small>'
+
                                 sideOverlays.appendChild(a)
                             } )
 
