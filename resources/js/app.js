@@ -229,10 +229,9 @@ seekAndDestroy = function () {
                     sideOverlays.innerHTML = null
                     var data = JSON.parse(xhr.responseText);
                     value = searchField.value
-                    var searchTerm = new RegExp(value);
-
+                    var searchTerm = new RegExp(value , 'i');
                     data.forEach(array => {
-                        found = array.name.match(searchTerm.ignoreCase);
+                        found = array.name.match(searchTerm);
                         if(found && searchTerm != '/(?:)/'){        
                             name = array.name;
                             color = array.color
