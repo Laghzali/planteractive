@@ -236,6 +236,7 @@ seekAndDestroy = function seekAndDestroy() {
         });
 
         if (searchField.value === "") {
+          sideOverlays.innerHTML = null;
           data.forEach(function (array) {
             name = array.name;
             color = array.color;

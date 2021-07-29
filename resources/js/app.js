@@ -254,6 +254,7 @@ seekAndDestroy = function () {
                         } 
                     })
                     if(searchField.value === "") {
+                        sideOverlays.innerHTML = null
                         data.forEach(array => {
                                  
                                 name = array.name;
