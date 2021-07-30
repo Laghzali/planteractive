@@ -6,21 +6,22 @@
 
 <div class="container-fluid">
     <div style="max-height: 100vh;" id="row-main" class="row">
-      <div class="col-md-9" id="openseadragon">
+      <div class="col-md-10" id="openseadragon">
         <!--COPYRIGHTV-->
         <div id="copyright" class="row">
             <p class="col-md-6 text-muted text-center justify-content-end">© OrderAid 2021</p>
-            <p class="col-md-6 text-muted text-center justify-content-start">© OrderAid 2021</p>    
+            <p class="col-md-6 text-muted text-center justify-content-start">plan@orderaid.com.au</p>
         </div>
+        <button class="btn button-default bottom-0 right-0 zIndex:10 icon" id="showContactButton"><i style="position:relative;right: 5px;" class="fas fa-paper-plane fa-2x"></i></button>
         <div id="sideToggle" class="right-0">
           <i class="arrow right" id="arrow"></i>
         </div> 
           <!--COPY RIGHT-->
       </div>
-        <div class="col-md-3 shadow-lg  " id="sidebar">
+        <div class="col-md-2 shadow-lg  " id="sidebar">
               <div id="header" class="col-md-12 ">
 
-                  <img class="mt-10 shadow rounded" width=200 height=160 src='logo.png'>
+                  <img class="mt-10" width=200 height=160 src='logo.png'>
                 </div>
                 <div class="input-group">
                    <input type="search" id="searchInput" class="form-control" placeholder="What are you looking for?" />
@@ -56,7 +57,7 @@
                 </ul>
           </div>
           <div style="width:fit-content;" id="dropdown" class="col-sm-auto mt-2 dropdown ">
-                <span data-bs-toggle="dropdown" style="color:grey" class="pt-3 icons" aria-expanded="false">
+                <span data-bs-toggle="dropdown" style="color:#002180" class="pt-3 icons" aria-expanded="false">
                 <i style='font-size:22px' class=" far fa-clone fa-2x icon"></i>     
                 </span>
                 <ul id="mapsList" class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
@@ -65,7 +66,7 @@
                 <!--MAPS-->    
                 <!--SYMBOLE-->
                     <div style="width:fit-content;" id="dropdown" class="col-sm-auto mt-2 dropdown ">
-                        <span data-bs-toggle="dropdown" style="color:grey" class="pt-3 icons" aria-expanded="false">
+                        <span data-bs-toggle="dropdown" style="color:#002180" class="pt-3 icons" aria-expanded="false">
                         <i style='font-size:26px' class="fas fa-times icon fa-2x"></i>
                         </span>
                         <ul class="dropdown-menu dropdown-menu-dark  text-small shadow" aria-labelledby="dropdownUser1">

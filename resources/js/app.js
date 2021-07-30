@@ -373,7 +373,12 @@ jQuery( document ).ready(function() {
     const searchInput = document.getElementById('searchInput')
     const showUploadForm = document.getElementById('showUploadForm')
     const arrowFunction = document.getElementById('arrow')
-    arrowFunction.addEventListener('click', () => {$("#sidebar").toggleClass("collapsed");$("#arrow").toggleClass("left right");$("#openseadragon").toggleClass("col-md-12 col-md-9")})
+    const showContact = document.getElementById('showContactButton')
+    const contactFormSend = document.getElementById('contactFormSend')
+
+    contactFormSend.addEventListener('click' , () => contactSend())
+    showContact.addEventListener('click', () => {$("#contactForm").modal("show")})
+    arrowFunction.addEventListener('click', () => {$("#sidebar").toggleClass("collapsed");$("#arrow").toggleClass("left right");$("#openseadragon").toggleClass("col-md-12 col-md-10")})
     showUploadForm.addEventListener('click', () => {$("#uploadPdf").modal("show")}) 
     searchInput.addEventListener('click', () => seekAndDestroy())
     uploadPdfButton.addEventListener('click', ()=> uploadPdf())
@@ -429,4 +434,25 @@ var loadMap = function(imgUrl, mapId) {
                 
         });
      };
+    }
+
+
+    contactSend =  function () {
+        name =  document.getElementById('contactName').value
+        email =  document.getElementById('contactEmail').value 
+        message =  document.getElementById('contactMessage').value 
+        form = new FormData()
+        form.append('contactName', name)
+        form.append('contactEmail', email)
+        form.append('contactMessage', message)
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) { 
+                    console.log('sent')
+                
+            }}
+        xhr.open("POST", 'api/contact', true);
+
+        xhr.send(form);
+        
     }

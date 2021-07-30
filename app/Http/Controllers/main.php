@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Models\overlays;
 use App\Models\maps;
@@ -115,5 +116,26 @@ class main extends Controller
             ], 404);
           }
         }
+   public function sendEmail(Request $request)
+    {
+        $request->validate([
+          'contactEmail' => 'required|email',
+          'contactName' => 'required',
+          'contactMessage' => 'required',
+        ]);
+
+        $data = [
+          'contactEmail' => $request->contactEmail,
+          'contactName' => $request->contactName,
+          'contactMessage' => $request->contactMessage
+        ];
+
+        Mail::send('email-template', $data, function($message) use ($data) {
+          $message->to('mohamed.laghzali@uit.ac.ma')
+          ->subject('OrderAid.com - Planteractive Contact Form');
+        });
+
+        return back()->with(['message' => 'Email successfully sent!']);
+    }
 
 }

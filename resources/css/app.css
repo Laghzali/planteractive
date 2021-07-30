@@ -97,7 +97,7 @@ input[type="color"] {
 }
 
 .controls {
-    color: grey;
+    color: #002180;
 }
 .controls:hover {
     font-size: 30px;
@@ -177,4 +177,18 @@ input[type="color"] {
 #sideOverlays {
     overflow-y: scroll;
     max-height: 70%;
+}
+
+#showContactButton {
+    color: #002180;
+    margin: 10px;
+    position: absolute;
+    right: 0;
+    z-index: 19;
+    background: white;
+    width: 50;
+    height: 50;
+    border-radius: 50%;
+    padding-top: 10;
+    padding-right: 5px;
 }

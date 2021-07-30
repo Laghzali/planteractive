@@ -13,7 +13,7 @@ use App\Http\Controllers\main;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::post('/contact', [main::class , 'sendEmail']);
 Route::post('/save/existing' , [main::class, 'saveExistingOverlay']);
 Route::post('/save' , [main::class, 'saveOverlay']);
 Route::post('/new/map' , [main::class, 'newMap2jpg']);
