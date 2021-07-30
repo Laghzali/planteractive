@@ -169,7 +169,7 @@ window.draw = function () {
                             htmlx += "      <h4 id='nameField' class='modal-title nameField'>"+data[elm].name+"</h4> "
                             htmlx += "       <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>"
                             htmlx += "      </div>"
-                            htmlx += "     <div  class='modal-body'><img src="+data[elm].image+"  id='imageField' > <p class='col-md-12' id='noteField'>"+data[elm].note+ "</p> </div>"
+                            htmlx += "     <div  class='modal-body'><img src="+data[elm].image+"  id='imageField'> <p class='col-md-12' id='noteField'>"+data[elm].note+ "</p> </div>"
                             htmlx += "     <div class='modal-footer'>"
                             htmlx += "  <button type='button' class='btn btn-danger' onclick='deleteOverlay("+data[elm].overlay_id+")' data-bs-dismiss='modal'>Delete</button>"
                             htmlx += "  <button type='button' class='btn btn-info' onclick='' data-bs-dismiss='modal'>Edit</button>"
