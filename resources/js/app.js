@@ -47,7 +47,7 @@
             form = new FormData()
             form.append('note', note)
             form.append('name', name)
-            form.append('symbol', symbol)
+            form.append('symbol_', symbol)
             form.append('color', color)
             form.append('x', point.x)
             form.append('y', point.y)
@@ -195,11 +195,7 @@ window.draw = function () {
                             a.innerHTML   += '<p class="mb-1">'+data[elm].note+'</p>'
 
                             sideOverlays.appendChild(a)
-                            
 
-                            
-
-                            
                         }
 
                     }
@@ -228,6 +224,7 @@ seekAndDestroy = function () {
                
                 $( searchField).on('input', function() { 
                     sideOverlays.innerHTML = null
+                    viewer.clearOverlays()
                     var data = JSON.parse(xhr.responseText);
                     value = searchField.value
                     var searchTerm = new RegExp(value , 'i');
@@ -250,8 +247,35 @@ seekAndDestroy = function () {
                             div.innerHTML += '<small><i onclick="renderOverlay('+array.overlay_id+')" style="color:'+color+'" class="'+symbol+' customSym" ></small>'
                             a.appendChild(div)
                             a.innerHTML   += '<p class="mb-1">'+note+'</p>'
-
                             sideOverlays.appendChild(a)
+                            //DRAWING SYMBOLS 
+                            var  pointPosition =  new OpenSeadragon.Point()
+                            div = document.createElement('div')
+                            div.id = array.overlay_id
+                            document.body.appendChild(div)
+                            span = document.createElement('span')
+                            span.setAttribute('style', 'z-index:12;color:'+array.color+'')
+                            span.innerHTML= '<i class="'+array.symbol+' customSym"><i class=" dot pulsate"></i></i>'
+                            span.setAttribute('id','renderer'+array.overlay_id)
+                            div.appendChild(span)
+                            htmlx = "<div id='parentModal" + array.overlay_id + "' class='modal fade' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>"
+                            htmlx += "  <div class='modal-dialog'>"
+                            htmlx += "   <div class='modal-content'>"
+                            htmlx += "     <div class='modal-header'>"
+                            htmlx += "      <h4 id='nameField' class='modal-title nameField'>"+array.name+"</h4> "
+                            htmlx += "       <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>"
+                            htmlx += "      </div>"
+                            htmlx += "     <div  class='modal-body'><img src="+array.image+"  id='imageField'> <p class='col-md-12' id='noteField'>"+array.note+ "</p> </div>"
+                            htmlx += "     <div class='modal-footer'>"
+                            htmlx += "  <button type='button' class='btn btn-danger' onclick='deleteOverlay("+array.overlay_id+")' data-bs-dismiss='modal'>Delete</button>"
+                            htmlx += "  <button type='button' class='btn btn-info' onclick='' data-bs-dismiss='modal'>Edit</button>"
+                            htmlx += "   </div></div> </div></div>"
+                            pointPosition.x = array.x 
+                            pointPosition.y = array.y
+                            document.body.insertAdjacentHTML('beforeend', htmlx)
+                            viewer.addOverlay(div, pointPosition, OpenSeadragon.Placement.CENTER)
+                            span.setAttribute('onclick', "renderOverlay("+array.overlay_id+")")
+
                         } 
                     })
                     if(searchField.value === "") {
@@ -448,7 +472,7 @@ var loadMap = function(imgUrl, mapId) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
-                    console.log('sent')
+                    alert('Your message has been sent')
                 
             }}
         xhr.open("POST", 'api/contact', true);

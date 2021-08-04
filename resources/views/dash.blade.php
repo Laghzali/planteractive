@@ -23,14 +23,23 @@
 
                   <img class="mt-10" width=200 height=160 src='logo.png'>
                 </div>
-                <div class="input-group">
-                   <input type="search" id="searchInput" class="form-control" placeholder="What are you looking for?" />
-                        <span id="clearSearch" class="input-group-btn">
-                          <button onclick="draw()" class="btn btn-default" type="submit">
-                              <i class="fas fa-sync"></i>
-                          </button>
-                         </span>
+                <div class="input-group mb-3">
+                  
+                  <select class="custom-select">
+                    <option selected>Fitlers</option>
+                    <option value="1">Name</option>
+                    <option value="2">Note</option>
+                    <option value="3">Tag</option>
+                  </select>
+                 
+                  <input type="search" id="searchInput" class="form-control" placeholder="What are you looking for?" />
+                      <span id="clearSearch" class="input-group-btn">
+                        <button onclick="draw()" class="btn btn-default" type="submit">
+                            <i class="fas fa-sync"></i>
+                        </button>
+                    </span>
                 </div>
+
                 <hr>
                   <div  id="sideOverlays" class="list-group mt-2 ">
 
