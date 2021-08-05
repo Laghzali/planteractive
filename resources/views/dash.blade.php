@@ -25,11 +25,10 @@
                 </div>
                 <div class="input-group mb-3">
                   
-                  <select class="custom-select">
-                    <option selected>Fitlers</option>
-                    <option value="1">Name</option>
-                    <option value="2">Note</option>
-                    <option value="3">Tag</option>
+                  <select style="max-width:20%" class="custom-select form-control">
+                    <option selected>Name</option>
+                    <option value="note">Note</option>
+                    <option value="tag">Tag</option>
                   </select>
                  
                   <input type="search" id="searchInput" class="form-control" placeholder="What are you looking for?" />
