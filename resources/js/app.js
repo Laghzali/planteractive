@@ -218,7 +218,8 @@ seekAndDestroy = function () {
         searchField = document.getElementById('searchInput')
         var xhr = new XMLHttpRequest();
         sideOverlays = document.getElementById('sideOverlays')
-
+        var filter = document.getElementById('searchFilter').value
+        console.log(filter)
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) { 
                
@@ -229,7 +230,9 @@ seekAndDestroy = function () {
                     value = searchField.value
                     var searchTerm = new RegExp(value , 'i');
                     data.forEach(array => {
-                        found = array.name.match(searchTerm);
+                        if(filter === "name" ) {found = array.name.match(searchTerm);}
+                        if(filter === "note" ) {found = array.note.match(searchTerm);}
+                        else{found = array.name.match(searchTerm);}
                         if(found && searchTerm != '/(?:)/'){        
                             name = array.name;
                             color = array.color

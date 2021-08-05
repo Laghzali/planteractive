@@ -135,8 +135,10 @@ input[type="color"] {
 .customSym:hover {
     z-index: 100;
     cursor: pointer;
+
     font-size: 43px;
-    /*  filter: drop-shadow(1px 1px 1px rgb(10, 10, 10)); */
+    /*
+     filter: drop-shadow(1px 1px 1px rgb(10, 10, 10)); */
 }
 .customSym {
     z-index: 100;

@@ -25,8 +25,8 @@
                 </div>
                 <div class="input-group mb-3">
                   
-                  <select style="max-width:20%" class="custom-select form-control">
-                    <option selected>Name</option>
+                  <select id="searchFilter" style="max-width:20%" class="custom-select form-control">
+                    <option value="name" selected>Name</option>
                     <option value="note">Note</option>
                     <option value="tag">Tag</option>
                   </select>
