@@ -212,7 +212,6 @@ window.draw = function () {
 
 }
 
-
 seekAndDestroy = function () {
 
         searchField = document.getElementById('searchInput')
